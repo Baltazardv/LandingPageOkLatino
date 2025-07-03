@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OK Latino | Creación de Landing Pages y Gestión de Marketing</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style id="app-style">
+    /* --- Estilos Base y Branding "OK Latino" --- */
+    body {
+      font-family: 'Poppins', sans-serif;
+      scroll-behavior: smooth;
+      color: #333;
+      background-color: #f9f9f9;
+    }
+
+    .header {
+      background-color: white;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .btn-primary {
+      background: #cb0000;
+      color: white;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      background: #ff0000;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(203, 0, 0, 0.3);
+    }
+
+    .btn-secondary {
+      background: linear-gradient(90deg, #ff0000 0%, #e27676 100%);
+      color: white;
+      transition: all 0.3s ease;
+    }
+
+    .btn-secondary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(255, 0, 0, 0.3);
+    }
+
+    /* --- Sección Hero --- */
+    .hero {
+      position: relative;
+    }
+
+    .text-outline {
+      text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+    }
+
+    /* --- Elementos Interactivos --- */
+    .hover\:text-brand-red:hover {
+      color: #cb0000;
+    }
+
+    .focus\:border-brand-red:focus {
+      border-color: #cb0000;
+    }
+
+    /* --- Tarjetas de Servicios --- */
+    .service-card {
+      transition: all 0.3s ease;
+      border-top: 4px solid #e0e0e0;
+    }
+
+    .service-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+      border-top-color: #cb0000;
+    }
+
+    .service-card.highlighted {
+      border-top-color: #cb0000;
+    }
+
+    .service-card-popular-tag {
+      background-color: #cb0000;
+    }
+
+    .text-brand-red {
+      color: #cb0000;
+    }
+
+    /* --- Testimonios y Equipo --- */
+    .testimonial-controls button.active {
+      background-color: #cb0000;
+    }
+
+    .team-member:hover .team-member-img {
+      border-color: #cb0000;
+      transform: scale(1.05);
+    }
+
+    /* --- Menú Móvil --- */
+    @media (max-width: 768px) {
+      .nav-menu {
+        display: none;
+      }
+
+      .nav-menu.open {
+        display: flex;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        right: 0;
+        background: white;
+        flex-direction: column;
+        padding: 1rem;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        z-index: 999;
+      }
+    }
+
+    /* --- Botones Flotantes --- */
+    .floating-buttons {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .floating-btn {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 28px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      transition: transform 0.2s ease;
+    }
+
+    .floating-btn:hover {
+      transform: scale(1.1);
+    }
+
+    .whatsapp-btn {
+      background-color: #25D366;
+    }
+
+    .messenger-btn {
+      background-color: #00B2FF;
+    }
+
+    /* Contenedor del video */
+    .video-container {
+      width: 90%;
+      /* Ocupa el 90% del ancho de la pantalla */
+      max-width: 1200px;
+      /* Pero no más de 1200px para pantallas grandes */
+      margin: 20px auto;
+      /* Centrado y con un poco de espacio vertical */
+      border-radius: 12px;
+      /* Bordes redondeados para un look moderno */
+      overflow: hidden;
+      /* Asegura que el video no se salga de los bordes redondeados */
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      /* Sombra para dar profundidad */
+    }
+
+    /* Estilos para la etiqueta de video */
+    video {
+      /* Hace que el video sea flexible y se adapte al tamaño del contenedor */
+      width: 100%;
+      height: auto;
+      /* Elimina cualquier espacio extra debajo del video */
+      display: block;
+    }
+
+    /* --- Animación de Fórmula en Matraz --- */
+    #formula-container {
+      position: relative;
+      height: 400px;
+      width: 100%;
+      max-width: 600px;
+      margin: auto;
+    }
+
+    .ingredient-icon {
+      position: absolute;
+      text-align: center;
+      width: 80px;
+      opacity: 0;
+      left: 50%;
+      transform: translate(-50%, -50px);
+      animation-name: fall-in-flask;
+      animation-duration: 1.5s;
+      animation-timing-function: cubic-bezier(0.6, -0.28, 0.735, 0.045);
+      animation-fill-mode: forwards;
+    }
+
+    .flask-container {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 14rem;
+      color: #f3f4f6;
+      z-index: 10;
+    }
+
+    .flask-liquid-wrapper {
+      position: absolute;
+      bottom: 70px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 132px;
+      height: 110px;
+      clip-path: polygon(35% 0, 66% 0, 100% 100%, 0% 100%);
+      z-index: 5;
+      border-radius: 15px;
+      overflow: hidden;
+    }
+
+    .flask-liquid {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 0;
+      /* Inicia vacío */
+      background: #fecaca;
+      transition: height 0.5s ease-out;
+    }
+
+    .bubbles {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .bubble {
+      position: absolute;
+      background-color: rgba(255, 255, 255, 0.5);
+      border-radius: 50%;
+      animation: rise 4s infinite;
+    }
+
+    .result-container {
+      position: absolute;
+      bottom: 70px;
+      left: 50%;
+      transform: translate(-50%, 50px);
+      opacity: 0;
+      text-align: center;
+      z-index: 20;
+    }
+
+    /* Keyframes para la animación */
+    @keyframes fall-in-flask {
+      0% {
+        opacity: 1;
+        transform: translate(-50%, -50px);
+      }
+
+      70% {
+        opacity: 1;
+        transform: translate(-50%, 120px) scale(0.8);
+      }
+
+      100% {
+        opacity: 0;
+        transform: translate(-50%, 120px) scale(0);
+      }
+    }
+
+    @keyframes rise {
+      0% {
+        bottom: -10px;
+        opacity: 1;
+      }
+
+      100% {
+        bottom: 110px;
+        opacity: 0;
+      }
+    }
+
+    @keyframes launch-result {
+      0% {
+        transform: translate(-50%, 50px);
+        opacity: 0;
+      }
+
+      40%,
+      60% {
+        transform: translate(-50%, -40px);
+        opacity: 1;
+      }
+
+      100% {
+        transform: translate(-50%, -200px);
+        opacity: 0;
+      }
+    }
+
+    /* --- Animación de Pulso para Imagen --- */
+    @keyframes pulse-custom {
+
+      0%,
+      100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(203, 0, 0, 0.4);
+      }
+
+      50% {
+        transform: scale(1.05);
+        box-shadow: 0 0 0 25px rgba(203, 0, 0, 0);
+      }
+    }
+
+    .animate-pulse-custom {
+      animation: pulse-custom 2.5s infinite;
+    }
+  </style>
+</head>
+
+<body class="bg-gray-100">
+  <header class="header fixed top-0 left-0 w-full z-50">
+    <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+      <a href="#" class="flex items-center">
+        <img src="C:\Users\ASUS\Documents\VsCode_Projects\Landing Page OkLatino\assets\LOGOOKLATINO.png"
+          alt="OK Latino Logo" class="h-10"
+          onerror="this.onerror=null;this.src='https://placehold.co/150x40/ffffff/cb0000?text=OK+Latino';">
+      </a>
+      <nav class="nav-menu hidden md:flex items-center space-x-8">
+        <a href="#services" class="text-gray-700 hover:text-brand-red font-medium transition-colors">Servicios</a>
+        <a href="#process" class="text-gray-700 hover:text-brand-red font-medium transition-colors">Proceso</a>
+        <a href="#testimonials" class="text-gray-700 hover:text-brand-red font-medium transition-colors">Testimonios</a>
+        <a href="#about" class="text-gray-700 hover:text-brand-red font-medium transition-colors">Nosotros</a>
+        <a href="#contact" class="text-gray-700 hover:text-brand-red font-medium transition-colors">Contacto</a>
+      </nav>
+      <button id="mobile-menu-button" class="md:hidden text-gray-500 hover:text-gray-700 focus:outline-none">
+        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+      <a href="#booking"
+        class="btn-primary hidden md:inline-block px-6 py-2 text-white font-medium rounded-full shadow-lg">Agendar
+        Consulta</a>
+    </div>
+    <div id="mobile-menu" class="nav-menu md:hidden">
+      <a href="#services" class="block py-2 px-4 text-gray-700 hover:text-brand-red font-medium">Servicios</a>
+      <a href="#process" class="block py-2 px-4 text-gray-700 hover:text-brand-red font-medium">Proceso</a>
+      <a href="#testimonials" class="block py-2 px-4 text-gray-700 hover:text-brand-red font-medium">Testimonios</a>
+      <a href="#about" class="block py-2 px-4 text-gray-700 hover:text-brand-red font-medium">Nosotros</a>
+      <a href="#contact" class="block py-2 px-4 text-gray-700 hover:text-brand-red font-medium">Contacto</a>
+      <a href="#booking"
+        class="btn-primary block mx-4 my-2 px-6 py-2 text-white font-medium rounded-full text-center">Agendar
+        Consulta</a>
+    </div>
+  </header>
+
+  <main class="pt-16">
+    <section class="hero relative flex items-center justify-center min-h-screen overflow-hidden">
+      <!-- Video de fondo -->
+      <video autoplay loop muted playsinline class="absolute top-0 left-0 w-full h-full object-cover z-0">
+        <!-- CAMBIO: Coloca la ruta a tu video aquí -->
+        <source src="C:\Users\ASUS\Documents\VsCode_Projects\Landing Page OkLatino\assets\WEBOKLATINO.mp4" type="video/mp4">
+        Tu navegador no soporta videos.
+      </video>
+      <!-- Capa de superposición oscura -->
+      <div class="absolute top-0 left-0 w-full h-full bg-black opacity-60 z-10"></div>
+      <!-- Contenido de texto -->
+      <div class="relative container mx-auto px-4 py-16 text-center z-20">
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6 text-outline">OK
+          LATINO:<br>Campañas de marketing digital con resultados reales y escalables.</h1>
+        <p class="text-xl text-white mb-8 max-w-2xl mx-auto text-outline">Especializados en Meta Business y creación de
+          landing page exitosas.</p>
+        <a href="#services"
+          class="btn-secondary inline-block px-8 py-3 text-white font-medium rounded-full shadow-lg text-lg">Ver
+          Nuestros Planes</a>
+      </div>
+    </section>
+
+    <div class="video-container">
+      <video
+        src="C:\Users\ASUS\Documents\VsCode_Projects\Landing Page OkLatino\assets\OK LATINO. FACEBOOK BUSINESS PARTNER.mp4"
+        autoplay loop muted controls playsinline>
+        Lo sentimos, tu navegador no soporta la etiqueta de video.
+      </video>
+    </div>
+
+    <!-- SECCIÓN DE PROCESO CON ANIMACIÓN DE FÓRMULA MEJORADA -->
+    <section id="process" class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-bold mb-4">Nuestra Fórmula para el Éxito</h2>
+          <p class="text-gray-600 max-w-2xl mx-auto">Así es como combinamos nuestros pilares para generar resultados
+            reales.</p>
+        </div>
+        <div id="formula-container">
+          <!-- Ingredientes -->
+          <div id="ingredient-1" class="ingredient-icon">
+            <i class="fas fa-chart-line text-4xl text-brand-red mb-2"></i>
+            <p class="font-semibold">Análisis</p>
+          </div>
+          <div id="ingredient-2" class="ingredient-icon">
+            <i class="fas fa-lightbulb text-4xl text-brand-red mb-2"></i>
+            <p class="font-semibold">Creatividad</p>
+          </div>
+          <div id="ingredient-3" class="ingredient-icon">
+            <i class="fas fa-share-alt text-4xl text-brand-red mb-2"></i>
+            <p class="font-semibold">Estrategia Social</p>
+          </div>
+          <div id="ingredient-4" class="ingredient-icon">
+            <i class="fas fa-search-dollar text-4xl text-brand-red mb-2"></i>
+            <p class="font-semibold">Optimización SEO</p>
+          </div>
+
+          <!-- Matraz y Resultado -->
+          <div class="flask-container">
+            <div class="flask-liquid-wrapper">
+              <div id="flask-liquid" class="flask-liquid">
+                <div id="bubbles" class="bubbles"></div>
+              </div>
+            </div>
+            <i id="flask-icon" class="fas fa-flask"></i>
+          </div>
+          <div id="result-container" class="result-container">
+            <i class="fas fa-rocket text-5xl text-brand-red mb-3"></i>
+            <p class="text-2xl font-bold">Resultados</p>
+            <p class="text-gray-600">¡Tu negocio despega!</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="services" class="py-16 bg-gray-50">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-bold mb-4">Soluciones a tu Medida</h2>
+          <p class="text-gray-600 max-w-2xl mx-auto">Elige el servicio que tu negocio necesita. Todos nuestros paquetes
+            son de pago único.</p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <!-- Paquete 1 -->
+          <div class="service-card bg-white rounded-lg shadow-lg overflow-hidden flex flex-col">
+            <div class="p-6 flex-grow">
+              <h3 class="text-2xl font-bold mb-2">Gestión de Anuncios</h3>
+              <p class="text-gray-500 mb-4">Campañas en Meta (Facebook, Instagram) por expertos certificados.</p>
+              <div class="h-px bg-gray-200 my-4"></div>
+              <ul class="mb-6 space-y-2 text-gray-600">
+                <li class="flex items-center"><i class="fas fa-check text-brand-red mr-3"></i><span>Análisis de
+                    Audiencia</span></li>
+                <li class="flex items-center"><i class="fas fa-check text-brand-red mr-3"></i><span>Diseño de
+                    Creativos</span></li>
+                <li class="flex items-center"><i class="fas fa-check text-brand-red mr-3"></i><span>Optimización de
+                    Presupuesto</span></li>
+                <li class="flex items-center"><i class="fas fa-check text-brand-red mr-3"></i><span>Reporte de
+                    Rendimiento</span></li>
+              </ul>
+            </div>
+            <div class="p-6 pt-0 text-center"><span class="block text-3xl font-bold mb-2">$499<span
+                  class="text-base font-normal"> /pago único</span></span><a href="#booking"
+                class="btn-primary inline-block w-full py-2 px-4 font-medium rounded-lg">Contratar</a></div>
+          </div>
+          <!-- Paquete 2 -->
+          <div class="service-card bg-white rounded-lg shadow-lg overflow-hidden flex flex-col">
+            <div class="p-6 flex-grow">
+              <h3 class="text-2xl font-bold mb-2">Marketing Digital</h3>
+              <p class="text-gray-500 mb-4">Aumenta tu visibilidad orgánica con contenido y estrategias SEO.</p>
+              <div class="h-px bg-gray-200 my-4"></div>
+              <ul class="mb-6 space-y-2 text-gray-600">
+                <li class="flex items-center"><i class="fas fa-check text-brand-red mr-3"></i><span>Estrategia de
+                    Contenidos</span></li>
+                <li class="flex items-center"><i class="fas fa-check text-brand-red mr-3"></i><span>Optimización SEO
+                    On-Page</span></li>
+                <li class="flex items-center"><i class="fas fa-check text-brand-red mr-3"></i><span>2 Artículos de
+                    Blog</span></li>
+                <li class="flex items-center"><i class="fas fa-check text-brand-red mr-3"></i><span>Gestión de Redes
+                    (Básico)</span></li>
+              </ul>
+            </div>
+            <div class="p-6 pt-0 text-center"><span class="block text-3xl font-bold mb-2">$599<span
+                  class="text-base font-normal"> /pago único</span></span><a href="#booking"
+                class="btn-primary inline-block w-full py-2 px-4 font-medium rounded-lg">Contratar</a></div>
+          </div>
+          <!-- Paquete 3 -->
+          <div class="service-card bg-white rounded-lg shadow-lg overflow-hidden flex flex-col">
+            <div class="p-6 flex-grow">
+              <h3 class="text-2xl font-bold mb-2">Desarrollo de Landing Page</h3>
+              <p class="text-gray-500 mb-4">Una página de aterrizaje profesional y optimizada para convertir.</p>
+              <div class="h-px bg-gray-200 my-4"></div>
+              <ul class="mb-6 space-y-2 text-gray-600">
+                <li class="flex items-center"><i class="fas fa-check text-brand-red mr-3"></i><span>Diseño 100%
+                    Personalizado</span></li>
+                <li class="flex items-center"><i class="fas fa-check text-brand-red mr-3"></i><span>Copywriting
+                    Persuasivo</span></li>
+                <li class="flex items-center"><i class="fas fa-check text-brand-red mr-3"></i><span>Optimización de
+                    Velocidad</span></li>
+                <li class="flex items-center"><i class="fas fa-check text-brand-red mr-3"></i><span>Integración de
+                    Formulario</span></li>
+              </ul>
+            </div>
+            <div class="p-6 pt-0 text-center"><span class="block text-3xl font-bold mb-2">$399<span
+                  class="text-base font-normal"> /pago único</span></span><a href="#booking"
+                class="btn-primary inline-block w-full py-2 px-4 font-medium rounded-lg">Contratar</a></div>
+          </div>
+          <!-- Paquete 4 (Popular) -->
+          <div
+            class="service-card highlighted bg-white rounded-lg shadow-xl overflow-hidden transform md:scale-105 flex flex-col">
+            <div class="service-card-popular-tag text-white text-center py-2 text-sm font-medium">SOLUCIÓN TOTAL</div>
+            <div class="p-6 flex-grow">
+              <h3 class="text-2xl font-bold mb-2">Paquete Completo</h3>
+              <p class="text-gray-500 mb-4">La solución definitiva: Anuncios, Marketing y Landing Page.</p>
+              <div class="h-px bg-gray-200 my-4"></div>
+              <ul class="mb-6 space-y-2 text-gray-600">
+                <li class="flex items-center"><i class="fas fa-check text-brand-red mr-3"></i><span
+                    class="font-bold">Gestión de Anuncios</span></li>
+                <li class="flex items-center"><i class="fas fa-check text-brand-red mr-3"></i><span
+                    class="font-bold">Marketing Digital</span></li>
+                <li class="flex items-center"><i class="fas fa-check text-brand-red mr-3"></i><span
+                    class="font-bold">Desarrollo de Landing Page</span></li>
+                <li class="flex items-center"><i class="fas fa-check text-brand-red mr-3"></i><span>Soporte
+                    Prioritario</span></li>
+              </ul>
+            </div>
+            <div class="p-6 pt-0 text-center"><span class="block text-3xl font-bold mb-2">$1299<span
+                  class="text-base font-normal"> /pago único</span></span><a href="#booking"
+                class="btn-secondary inline-block w-full py-2 px-4 font-medium rounded-lg">Empezar Ahora</a></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="meta-partner" class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div
+          class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 items-center bg-gray-50 p-8 rounded-lg shadow-md">
+          <div class="md:col-span-1 flex justify-center">
+            <img src="C:\Users\ASUS\Documents\VsCode_Projects\Landing Page OkLatino\assets\meta-partners.jpg"
+              alt="Logo de Meta Business Partner" class="h-24 w-auto"
+              onerror="this.onerror=null;this.src='https://placehold.co/200x96/ffffff/1877f2?text=Meta+Partner';">
+          </div>
+          <div class="md:col-span-2 text-center md:text-left">
+            <h3 class="text-2xl font-bold mb-2">Somos una Empresa Certificada por Meta</h3>
+            <p class="text-gray-600">Como <span class="font-semibold">Meta Business Partner</span>, tenemos la
+              experiencia y el reconocimiento oficial para gestionar tus campañas de anuncios con los más altos
+              estándares de calidad, asegurando el mejor rendimiento para tu inversión.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="brand-showcase" class="py-16 bg-white">
+      <div class="container mx-auto px-4 text-center">
+        <img src="C:\Users\ASUS\Documents\VsCode_Projects\Landing Page OkLatino\assets\OKLATINO.png"
+          alt="Logo OK Latino"
+          class="mx-auto h-56 w-56 rounded-full shadow-2xl border-4 border-white animate-pulse-custom"
+          onerror="this.onerror=null;this.src='https://placehold.co/224x224/cb0000/ffffff?text=OK';">
+        <h2 class="mt-8 text-5xl font-bold text-gray-800" style="font-family: 'Poppins', sans-serif;">OK LATINO</h2>
+      </div>
+    </section>
+
+    <section id="booking" class="py-16 bg-gray-50">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-bold mb-4">Solicita una Consulta Gratuita</h2>
+          <p class="text-gray-600 max-w-2xl mx-auto">Déjanos tus datos y uno de nuestros especialistas se pondrá en
+            contacto contigo a la brevedad para ofrecerte un plan de acción sin compromiso.</p>
+        </div>
+        <div class="max-w-lg mx-auto bg-white rounded-xl shadow-lg p-8">
+          <h3 class="text-2xl font-bold text-center mb-6">Ingresa tus Datos</h3>
+          <form id="booking-form">
+            <div class="mb-4">
+              <label for="booking_name" class="block text-gray-700 mb-2 font-medium">Nombre Completo</label>
+              <input type="text" id="booking_name" placeholder="Tu Nombre"
+                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-brand-red"
+                required>
+            </div>
+            <!-- NUEVOS CAMPOS -->
+            <div class="mb-4">
+              <label for="booking_country" class="block text-gray-700 mb-2 font-medium">País</label>
+              <input type="text" id="booking_country" placeholder="Tu País"
+                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-brand-red"
+                required>
+            </div>
+            <div class="mb-4">
+              <label for="booking_state" class="block text-gray-700 mb-2 font-medium">Estado</label>
+              <input type="text" id="booking_state" placeholder="Tu Estado"
+                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-brand-red"
+                required>
+            </div>
+            <!-- FIN NUEVOS CAMPOS -->
+            <div class="mb-4">
+              <label for="booking_email" class="block text-gray-700 mb-2 font-medium">Correo Electrónico</label>
+              <input type="email" id="booking_email" placeholder="tu@correo.com"
+                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-brand-red"
+                required>
+            </div>
+            <div class="mb-6">
+              <label for="booking_phone" class="block text-gray-700 mb-2 font-medium">Número de Teléfono</label>
+              <input type="tel" id="booking_phone" placeholder="Tu número de teléfono"
+                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-brand-red"
+                required>
+            </div>
+            <button type="submit" class="btn-primary w-full py-3 px-4 font-medium rounded-lg text-lg">Solicitar
+              Consulta</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <section id="testimonials" class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-bold mb-4">Lo que Dicen Nuestros Clientes</h2>
+          <p class="text-gray-600 max-w-2xl mx-auto">Escucha a las empresas que han logrado un crecimiento notable con
+            nuestras estrategias.</p>
+        </div>
+        <div class="max-w-4xl mx-auto relative">
+          <div id="testimonial-carousel" class="overflow-hidden">
+            <div class="flex transition-transform duration-500" id="testimonial-slider">
+              <div class="testimonial-card w-full flex-shrink-0 px-4">
+                <div class="bg-gray-50 rounded-lg shadow-md p-6 md:p-8">
+                  <div class="flex text-yellow-400 mb-4"><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                      class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                  <p class="text-lg mb-6 text-gray-700">"OK LATINO transformó por completo nuestra presencia online. Su
+                    enfoque estratégico en nuestras redes sociales y SEO ha resultado en un aumento del 200% en leads
+                    calificados en solo tres meses."</p>
+                  <div class="flex items-center"><img
+                      src="https://cdn.pixabay.com/photo/2018/11/08/23/52/man-3803551_1280.jpg"
+                      alt="Cliente Carlos Rodríguez" class="w-12 h-12 rounded-full object-cover">
+                    <div class="ml-3">
+                      <h4 class="font-medium">Carlos Rodríguez</h4>
+                      <p class="text-sm text-gray-500">CEO, TechSolutions Inc.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="testimonial-card w-full flex-shrink-0 px-4">
+                <div class="bg-gray-50 rounded-lg shadow-md p-6 md:p-8">
+                  <div class="flex text-yellow-400 mb-4"><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                      class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                  <p class="text-lg mb-6 text-gray-700">"Trabajar con OK LATINO ha cambiado las reglas del juego. Su
+                    equipo es receptivo, conocedor y realmente se preocupa por nuestro éxito. Nuestras tasas de
+                    conversión han mejorado drásticamente."</p>
+                  <div class="flex items-center"><img
+                      src="https://cdn.pixabay.com/photo/2018/01/15/07/51/woman-3083383_1280.jpg"
+                      alt="Cliente María González" class="w-12 h-12 rounded-full object-cover">
+                    <div class="ml-3">
+                      <h4 class="font-medium">María González</h4>
+                      <p class="text-sm text-gray-500">Directora de Marketing, Marca de Belleza</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="testimonial-card w-full flex-shrink-0 px-4">
+                <div class="bg-gray-50 rounded-lg shadow-md p-6 md:p-8">
+                  <div class="flex text-yellow-400 mb-4"><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                      class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
+                  <p class="text-lg mb-6 text-gray-700">"Era escéptico, pero OK LATINO me demostró lo contrario. Su
+                    enfoque basado en datos y sus informes transparentes nos mostraron exactamente lo que estábamos
+                    obteniendo. ¡Altamente recomendado!"</p>
+                  <div class="flex items-center"><img
+                      src="https://cdn.pixabay.com/photo/2016/11/21/12/42/beard-1845166_1280.jpg"
+                      alt="Cliente Miguel Santos" class="w-12 h-12 rounded-full object-cover">
+                    <div class="ml-3">
+                      <h4 class="font-medium">Miguel Santos</h4>
+                      <p class="text-sm text-gray-500">Propietario, Cadena de Restaurantes</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial-controls flex justify-center mt-6 space-x-2">
+            <button class="w-3 h-3 rounded-full bg-gray-300 focus:outline-none" data-slide="0"></button>
+            <button class="w-3 h-3 rounded-full bg-gray-300 focus:outline-none" data-slide="1"></button>
+            <button class="w-3 h-3 rounded-full bg-gray-300 focus:outline-none" data-slide="2"></button>
+          </div>
+          <button id="prev-testimonial"
+            class="absolute top-1/2 -left-4 transform -translate-y-1/2 w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center text-gray-500 hover:bg-gray-100 focus:outline-none"><i
+              class="fas fa-chevron-left"></i></button>
+          <button id="next-testimonial"
+            class="absolute top-1/2 -right-4 transform -translate-y-1/2 w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center text-gray-500 hover:bg-gray-100 focus:outline-none"><i
+              class="fas fa-chevron-right"></i></button>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="py-16 bg-gray-50">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-bold mb-4">Acerca de OK LATINO</h2>
+          <p class="text-gray-600 max-w-2xl mx-auto">Somos un equipo de expertos apasionados en marketing digital
+            dedicados a ayudar a las empresas a alcanzar su máximo potencial online.</p>
+        </div>
+        <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+          <div><img src="C:\Users\ASUS\Documents\VsCode_Projects\Landing Page OkLatino\assets\ACERCADE.jpg"
+              alt="OK Latino Brand" class="rounded-lg shadow-md mb-6 md:mb-0"
+              onerror="this.onerror=null;this.src='https://placehold.co/600x400/cb0000/ffffff?text=OK+Latino';"></div>
+          <div class="text-gray-700">
+            <p class="mb-4">En OK LATINO, creemos que el marketing digital efectivo es tanto un arte como una ciencia.
+              Nuestro enfoque combina estrategias de contenido creativas con análisis basados en datos para ofrecer
+              resultados medibles a nuestros clientes.</p>
+            <p>Fundada en 2020, hemos ayudado a más de 200 empresas en diversas industrias a mejorar su presencia
+              online, aumentar la participación del cliente e impulsar el crecimiento de los ingresos a través de
+              campañas de marketing digital dirigidas.</p>
+          </div>
+        </div>
+        <h3 class="text-2xl font-bold text-center mb-8 mt-16">Conoce a Nuestro Equipo</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-4xl mx-auto">
+          <div class="team-member text-center">
+            <div class="mb-3 mx-auto w-32 h-32 rounded-full overflow-hidden border-4 border-transparent">
+              <img src="C:\Users\ASUS\Documents\VsCode_Projects\Landing Page OkLatino\assets\WS1.png" alt="Saúl Rangel"
+                class="team-member-img w-full h-full object-cover rounded-full transition-all duration-300">
+            </div>
+            <h4 class="font-semibold">Saúl Rangel</h4>
+            <p class="text-gray-500 text-sm">Experto en marketing digital.<br>
+              Marketing político.<br>
+              Socio fundador OK Latino</p>
+          </div>
+          <div class="team-member text-center">
+            <div class="mb-3 mx-auto w-32 h-32 rounded-full overflow-hidden border-4 border-transparent">
+              <img src="C:\Users\ASUS\Documents\VsCode_Projects\Landing Page OkLatino\assets\WP1.png"
+                alt="Pablo Jiménez"
+                class="team-member-img w-full h-full object-cover rounded-full transition-all duration-300">
+            </div>
+            <h4 class="font-semibold">Pablo Jiménez</h4>
+            <p class="text-gray-500 text-sm">Experto en marketing digital.<br>
+              Productor audiovisual en marketing.<br>
+              Socio fundador OK Latino</p>
+          </div>
+          <div class="team-member text-center">
+            <div class="mb-3 mx-auto w-32 h-32 rounded-full overflow-hidden border-4 border-transparent">
+              <img src="C:\Users\ASUS\Documents\VsCode_Projects\Landing Page OkLatino\assets\WR1.png" alt="Reyna Marín"
+                class="team-member-img w-full h-full object-cover rounded-full transition-all duration-300">
+            </div>
+            <h4 class="font-semibold">Reyna Marín</h4>
+            <p class="text-gray-500 text-sm">Experta en marketing digital.<br>
+              Directora general OK Latino.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-bold mb-4">Ponte en Contacto</h2>
+          <p class="text-gray-600 max-w-2xl mx-auto">¿Tienes preguntas o estás listo para iniciar tu viaje de marketing
+            digital? Contáctanos hoy.</p>
+        </div>
+        <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div>
+            <form id="contact-form">
+              <div class="mb-4"><label for="name" class="block text-gray-700 mb-2">Nombre</label><input type="text"
+                  id="name"
+                  class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-brand-red"
+                  required></div>
+              <!-- NUEVOS CAMPOS -->
+              <div class="mb-4">
+                <label for="contact_country" class="block text-gray-700 mb-2">País</label>
+                <input type="text" id="contact_country"
+                  class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-brand-red"
+                  required>
+              </div>
+              <div class="mb-4">
+                <label for="contact_state" class="block text-gray-700 mb-2">Estado</label>
+                <input type="text" id="contact_state"
+                  class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-brand-red"
+                  required>
+              </div>
+              <!-- FIN NUEVOS CAMPOS -->
+              <div class="mb-4"><label for="email" class="block text-gray-700 mb-2">Correo Electrónico</label><input
+                  type="email" id="email"
+                  class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-brand-red"
+                  required></div>
+              <div class="mb-4"><label for="phone" class="block text-gray-700 mb-2">Teléfono (Opcional)</label><input
+                  type="tel" id="phone"
+                  class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-brand-red">
+              </div>
+              <div class="mb-4"><label for="message" class="block text-gray-700 mb-2">Mensaje</label><textarea
+                  id="message" rows="4"
+                  class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-brand-red"
+                  required></textarea></div>
+              <button type="submit" class="btn-primary py-2 px-6 font-medium rounded-lg">Enviar Mensaje</button>
+            </form>
+          </div>
+          <div class="bg-gray-50 rounded-lg p-6">
+            <h3 class="text-xl font-semibold mb-4">Información de Contacto</h3>
+            <div class="mb-6 space-y-4">
+              <div class="flex items-start">
+                <div class="text-brand-red mr-3 mt-1"><i class="fas fa-map-marker-alt"></i></div>
+                <div>
+                  <h4 class="font-medium">Dirección</h4>
+                  <p class="text-gray-600">Calle Pleasant Hill 17 Col Burocratas<br>Chilpancingo de los Bravo, GRO 39000
+                  </p>
+                </div>
+              </div>
+              <div class="flex items-start">
+                <div class="text-brand-red mr-3 mt-1"><i class="fas fa-phone"></i></div>
+                <div>
+                  <h4 class="font-medium">Teléfono</h4>
+                  <p class="text-gray-600">(512) 555-0123</p>
+                </div>
+              </div>
+              <div class="flex items-start">
+                <div class="text-brand-red mr-3 mt-1"><i class="fas fa-envelope"></i></div>
+                <div>
+                  <h4 class="font-medium">Correo Electrónico</h4>
+                  <p class="text-gray-600">info@oklatino.com</p>
+                </div>
+              </div>
+            </div>
+            <h4 class="font-medium mb-2">Horario Comercial</h4>
+            <ul class="text-gray-600">
+              <li class="mb-1">Lunes - Viernes: 10:00 AM - 6:00 PM</li>
+              <li>Sábado: 10:00 AM - 6:00 PM</li>
+              <li>Domingo: Cerrado</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-gray-800 text-white py-12">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div>
+          <h3 class="text-2xl font-bold mb-4 text-white">OK LATINO</h3>
+          <p class="text-gray-400 mb-4">Tu socio en crecimiento digital. Ayudamos a las empresas a alcanzar su máximo
+            potencial a través de soluciones estratégicas de marketing digital.</p>
+        </div>
+        <div>
+          <h3 class="text-lg font-semibold mb-4">Enlaces Rápidos</h3>
+          <ul class="space-y-2">
+            <li><a href="#about" class="text-gray-400 hover:text-white transition-colors">Nosotros</a></li>
+            <li><a href="#services" class="text-gray-400 hover:text-white transition-colors">Servicios</a></li>
+            <li><a href="#testimonials" class="text-gray-400 hover:text-white transition-colors">Testimonios</a></li>
+            <li><a href="#booking" class="text-gray-400 hover:text-white transition-colors">Agendar Cita</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-lg font-semibold mb-4">Servicios</h3>
+          <ul class="space-y-2">
+            <li><a href="#services" class="text-gray-400 hover:text-white transition-colors">Creación de Landing
+                Page</a></li>
+            <li><a href="#services" class="text-gray-400 hover:text-white transition-colors">Gestión de Marketing</a>
+            </li>
+            <li><a href="#services" class="text-gray-400 hover:text-white transition-colors">Optimización SEO</a></li>
+            <li><a href="#services" class="text-gray-400 hover:text-white transition-colors">Publicidad PPC</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-lg font-semibold mb-4">Mantente Actualizado</h3>
+          <p class="text-gray-400 mb-4">Suscríbete a nuestro boletín para recibir los últimos consejos y noticias de
+            marketing.</p>
+          <form id="newsletter-form" class="flex">
+            <input type="email" placeholder="Tu Correo Electrónico"
+              class="px-4 py-2 rounded-l-lg w-full focus:outline-none text-gray-800">
+            <button type="submit"
+              class="bg-brand-red text-white px-4 py-2 rounded-r-lg hover:bg-red-500 focus:outline-none"><i
+                class="fas fa-paper-plane"></i></button>
+          </form>
+        </div>
+      </div>
+      <div class="border-t border-gray-700 mt-8 pt-6 flex flex-col md:flex-row justify-between items-center">
+        <p class="text-gray-400 text-sm mb-4 md:mb-0">&copy; 2025 OK LATINO. Todos los derechos reservados.</p>
+        <div class="flex space-x-4">
+          <a href="#" class="text-gray-400 hover:text-white transition-colors">Política de Privacidad</a>
+          <a href="#" class="text-gray-400 hover:text-white transition-colors">Términos de Servicio</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="floating-buttons">
+    <a href="https://wa.me/15125550123" target="_blank" class="floating-btn whatsapp-btn"
+      aria-label="Contactar por WhatsApp">
+      <i class="fab fa-whatsapp"></i>
+    </a>
+    <a href="https://m.me/oklatino" target="_blank" class="floating-btn messenger-btn"
+      aria-label="Contactar por Messenger">
+      <i class="fab fa-facebook-messenger"></i>
+    </a>
+  </div>
+
+  <script id="app-script">
+    document.addEventListener('DOMContentLoaded', function () {
+      // --- Menú Móvil ---
+      const mobileMenuButton = document.getElementById('mobile-menu-button');
+      const mobileMenu = document.getElementById('mobile-menu');
+      if (mobileMenuButton && mobileMenu) {
+        mobileMenuButton.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+      }
+
+      // --- Desplazamiento Suave ---
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          const targetId = this.getAttribute('href');
+          if (targetId.length > 1) {
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+              let offset = 70; // Altura del header
+              window.scrollTo({ top: targetElement.offsetTop - offset, behavior: 'smooth' });
+              if (mobileMenu.classList.contains('open')) { mobileMenu.classList.remove('open'); }
+            }
+          }
+        });
+      });
+
+      // --- Lógica de la Animación de Fórmula en Bucle ---
+      const formulaContainer = document.getElementById('formula-container');
+      if (formulaContainer) {
+        const ingredients = document.querySelectorAll('.ingredient-icon');
+        const liquid = document.getElementById('flask-liquid');
+        const result = document.getElementById('result-container');
+        const bubblesContainer = document.getElementById('bubbles');
+        let animationInterval = null;
+
+        const runAnimation = () => {
+          // Reset styles
+          liquid.style.transition = 'none';
+          liquid.style.height = '0%';
+          bubblesContainer.style.opacity = '0';
+          bubblesContainer.innerHTML = '';
+          result.style.animation = 'none';
+
+          ingredients.forEach(ing => {
+            ing.style.opacity = '0';
+            ing.style.transform = `translate(-50%, -50px)`;
+            ing.style.animation = 'none';
+          });
+
+          // Force reflow
+          void formulaContainer.offsetWidth;
+
+          // Add animation classes
+          result.style.animation = 'launch-result 2s ease-in-out 6.5s forwards';
+
+          ingredients.forEach((ing, i) => {
+            ing.style.animation = `fall-in-flask 1.5s cubic-bezier(0.6, -0.28, 0.735, 0.045) ${1 + i * 1.2}s forwards`;
+
+            setTimeout(() => {
+              liquid.style.transition = 'height 0.5s ease-out';
+              liquid.style.height = `${(i + 1) * 25}%`;
+            }, 2000 + i * 1200);
+          });
+
+          setTimeout(() => {
+            bubblesContainer.style.opacity = '1';
+            for (let i = 0; i < 15; i++) {
+              const bubble = document.createElement('div');
+              bubble.className = 'bubble';
+              const size = Math.random() * 10 + 5;
+              bubble.style.width = `${size}px`;
+              bubble.style.height = `${size}px`;
+              bubble.style.left = `${Math.random() * 90}%`;
+              bubble.style.animationDuration = `${Math.random() * 2 + 2}s`;
+              bubble.style.animationDelay = `${Math.random() * 0.5}s`;
+              bubblesContainer.appendChild(bubble);
+              setTimeout(() => bubble.remove(), 4000);
+            }
+          }, 5800);
+
+          // Vaciar el matraz suavemente para el siguiente ciclo
+          setTimeout(() => {
+            liquid.style.transition = 'height 1s ease-in';
+            liquid.style.height = '0%';
+          }, 8500);
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              if (!animationInterval) {
+                runAnimation();
+                animationInterval = setInterval(runAnimation, 9500);
+              }
+            } else {
+              if (animationInterval) {
+                clearInterval(animationInterval);
+                animationInterval = null;
+              }
+            }
+          });
+        }, { threshold: 0.5 });
+
+        observer.observe(formulaContainer);
+      }
+
+      // --- Carrusel de Testimonios ---
+      const slider = document.getElementById('testimonial-slider');
+      const dots = document.querySelectorAll('.testimonial-controls button');
+      const prevBtn = document.getElementById('prev-testimonial');
+      const nextBtn = document.getElementById('next-testimonial');
+      let currentSlide = 0;
+      const totalSlides = slider ? slider.children.length : 0;
+
+      function updateCarousel() {
+        if (!slider || totalSlides === 0) return;
+        slider.style.transform = `translateX(-${currentSlide * 100}%)`;
+        dots.forEach((dot, index) => {
+          dot.classList.toggle('active', index === currentSlide);
+        });
+      }
+
+      if (nextBtn && prevBtn) {
+        nextBtn.addEventListener('click', () => {
+          currentSlide = (currentSlide + 1) % totalSlides;
+          updateCarousel();
+        });
+        prevBtn.addEventListener('click', () => {
+          currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+          updateCarousel();
+        });
+        dots.forEach(dot => {
+          dot.addEventListener('click', (e) => {
+            currentSlide = parseInt(e.target.dataset.slide);
+            updateCarousel();
+          })
+        });
+        setInterval(() => nextBtn.click(), 7000);
+        updateCarousel();
+      }
+
+      // --- Simulación de envío de formularios ---
+      document.querySelectorAll('form').forEach(form => {
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          alert('¡Gracias! Tu información ha sido recibida. (Este es un mensaje de demostración).');
+          form.reset();
+        });
+      });
+    });
+  </script>
+</body>
+
+</html>
