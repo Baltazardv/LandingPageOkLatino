@@ -605,8 +605,10 @@
               </ul>
             </div>
             <div class="p-6 pt-0 text-center"><span class="block text-3xl font-bold mb-2">$499<span
-                  class="text-base font-normal"> /pago único</span></span><a href="#booking"
-                class="btn-primary inline-block w-full py-2 px-4 font-medium rounded-lg">Contratar</a></div>
+                  class="text-base font-normal"> /pago único</span></span><a href="#" data-package="Gestión de Anuncios"
+                data-price="$499 /pago único"
+                class="service-button btn-primary inline-block w-full py-2 px-4 font-medium rounded-lg">Contratar</a>
+            </div>
           </div>
           <!-- Paquete 2 -->
           <div class="service-card bg-white rounded-lg shadow-lg overflow-hidden flex flex-col">
@@ -626,8 +628,10 @@
               </ul>
             </div>
             <div class="p-6 pt-0 text-center"><span class="block text-3xl font-bold mb-2">$599<span
-                  class="text-base font-normal"> /pago único</span></span><a href="#booking"
-                class="btn-primary inline-block w-full py-2 px-4 font-medium rounded-lg">Contratar</a></div>
+                  class="text-base font-normal"> /pago único</span></span><a href="#" data-package="Marketing Digital"
+                data-price="$599 /pago único"
+                class="service-button btn-primary inline-block w-full py-2 px-4 font-medium rounded-lg">Contratar</a>
+            </div>
           </div>
           <!-- Paquete 3 -->
           <div class="service-card bg-white rounded-lg shadow-lg overflow-hidden flex flex-col">
@@ -647,8 +651,10 @@
               </ul>
             </div>
             <div class="p-6 pt-0 text-center"><span class="block text-3xl font-bold mb-2">$399<span
-                  class="text-base font-normal"> /pago único</span></span><a href="#booking"
-                class="btn-primary inline-block w-full py-2 px-4 font-medium rounded-lg">Contratar</a></div>
+                  class="text-base font-normal"> /pago único</span></span><a href="#"
+                data-package="Desarrollo de Landing Page" data-price="$399 /pago único"
+                class="service-button btn-primary inline-block w-full py-2 px-4 font-medium rounded-lg">Contratar</a>
+            </div>
           </div>
           <!-- Paquete 4 (Popular) -->
           <div
@@ -670,8 +676,10 @@
               </ul>
             </div>
             <div class="p-6 pt-0 text-center"><span class="block text-3xl font-bold mb-2">$1299<span
-                  class="text-base font-normal"> /pago único</span></span><a href="#booking"
-                class="btn-secondary inline-block w-full py-2 px-4 font-medium rounded-lg">Empezar Ahora</a></div>
+                  class="text-base font-normal"> /pago único</span></span><a href="#" data-package="Paquete Completo"
+                data-price="$1299 /pago único"
+                class="service-button btn-secondary inline-block w-full py-2 px-4 font-medium rounded-lg">Empezar
+                Ahora</a></div>
           </div>
         </div>
       </div>
@@ -906,6 +914,52 @@
     </div>
   </footer>
 
+  <!-- MODAL DE PAGO -->
+  <div id="payment-modal" class="hidden fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 p-4">
+    <div class="bg-white rounded-lg shadow-xl p-8 max-w-md w-full relative">
+      <button id="close-modal"
+        class="absolute top-4 right-4 text-gray-400 hover:text-gray-800 text-2xl font-bold">&times;</button>
+      <h2 class="text-2xl font-bold mb-2 text-gray-800">Completa tu Compra</h2>
+      <p class="text-gray-500 mb-6">Estás a un paso de impulsar tu negocio.</p>
+
+      <div class="mb-6 border-t border-b py-4">
+        <p class="text-gray-600">Has seleccionado:</p>
+        <p id="modal-package-name" class="text-xl font-semibold text-brand-red"></p>
+        <p id="modal-package-price" class="text-2xl font-bold text-gray-800"></p>
+      </div>
+
+      <form id="payment-form">
+        <div class="mb-4">
+          <label for="card-name" class="block text-gray-700 mb-2 font-medium">Nombre en la Tarjeta</label>
+          <input type="text" id="card-name" placeholder="Juan Pérez"
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-brand-red"
+            required>
+        </div>
+        <div class="mb-4">
+          <label for="card-number" class="block text-gray-700 mb-2 font-medium">Número de Tarjeta</label>
+          <input type="text" id="card-number" placeholder="**** **** **** ****"
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-brand-red"
+            required>
+        </div>
+        <div class="flex gap-4 mb-6">
+          <div class="w-1/2">
+            <label for="expiry-date" class="block text-gray-700 mb-2 font-medium">Vencimiento</label>
+            <input type="text" id="expiry-date" placeholder="MM/AA"
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-brand-red"
+              required>
+          </div>
+          <div class="w-1/2">
+            <label for="cvc" class="block text-gray-700 mb-2 font-medium">CVC</label>
+            <input type="text" id="cvc" placeholder="123"
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-brand-red"
+              required>
+          </div>
+        </div>
+        <button type="submit" class="btn-primary w-full py-3 px-4 font-medium rounded-lg text-lg">Pagar Ahora</button>
+      </form>
+    </div>
+  </div>
+
   <div class="floating-buttons">
     <a href="https://wa.me/522211780331" target="_blank" class="floating-btn whatsapp-btn"
       aria-label="Contactar por WhatsApp">
@@ -1055,6 +1109,40 @@
         });
         setInterval(() => nextBtn.click(), 7000);
         updateCarousel();
+      }
+
+      // --- Lógica del Modal de Pago ---
+      const paymentModal = document.getElementById('payment-modal');
+      const closeModalBtn = document.getElementById('close-modal');
+      const serviceButtons = document.querySelectorAll('.service-button');
+      const modalPackageName = document.getElementById('modal-package-name');
+      const modalPackagePrice = document.getElementById('modal-package-price');
+
+      serviceButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+          e.preventDefault();
+          const packageName = button.dataset.package;
+          const packagePrice = button.dataset.price;
+
+          modalPackageName.textContent = packageName;
+          modalPackagePrice.textContent = packagePrice;
+
+          paymentModal.classList.remove('hidden');
+        });
+      });
+
+      if (closeModalBtn) {
+        closeModalBtn.addEventListener('click', () => {
+          paymentModal.classList.add('hidden');
+        });
+      }
+
+      if (paymentModal) {
+        paymentModal.addEventListener('click', (e) => {
+          if (e.target === paymentModal) {
+            paymentModal.classList.add('hidden');
+          }
+        });
       }
     });
   </script>
