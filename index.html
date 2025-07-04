@@ -69,6 +69,7 @@
     .service-card {
       transition: all 0.3s ease;
       border-top: 4px solid #e0e0e0;
+
     }
 
     .service-card:hover {
@@ -217,6 +218,7 @@
       width: 100%;
       height: 100%;
       object-fit: contain;
+      filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.5));
     }
 
     .flask-liquid-wrapper {
@@ -230,6 +232,16 @@
       z-index: 5;
       border-radius: 15px;
       overflow: hidden;
+      backdrop-filter: blur(3px);
+      filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+      background-color: rgba(255, 255, 255, 0.2);
+      /* Fondo semi-transparente */
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      /* Borde sutil */
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1),
+        /* Sombra suave */
+        0 0 20px rgba(255, 255, 255, 0.2) inset;
+      /* Resaltado interior */
     }
 
     .flask-liquid {
@@ -239,8 +251,9 @@
       width: 100%;
       height: 0;
       /* Inicia vacío */
-      background: #fecaca;
+      background: #fb7e7e;
       transition: height 0.5s ease-out;
+      filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.5));
     }
 
     .bubbles {
@@ -251,10 +264,12 @@
       height: 100%;
       opacity: 0;
       transition: opacity 0.3s;
+      backdrop-filter: blur(10px);
     }
 
     .bubble {
       position: absolute;
+      backdrop-filter: blur(10px);
       background-color: rgba(255, 255, 255, 0.5);
       border-radius: 50%;
       animation: rise 4s infinite;
@@ -386,8 +401,11 @@
       <div class="absolute top-0 left-0 w-full h-full bg-black opacity-60 z-10"></div>
       <!-- Contenido de texto -->
       <div class="relative container mx-auto px-4 py-16 text-center z-20">
-        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6 text-outline">OK
-          LATINO:<br>Campañas de marketing digital con resultados reales y escalables.</h1>
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6 text-outline">
+          <img src="assets\OKLTWEB.png" alt="OK Latino Logo" class="h-16 mx-auto mb-4"
+            onerror="this.onerror=null;this.src='https://placehold.co/200x64/ffffff/cb0000?text=OK+Latino';">
+          Campañas de marketing digital con resultados reales y escalables.
+        </h1>
         <p class="text-xl text-white mb-8 max-w-2xl mx-auto text-outline">Especializados en Meta Business y creación de
           landing page exitosas.</p>
         <a href="#services"
@@ -401,6 +419,119 @@
         Lo sentimos, tu navegador no soporta la etiqueta de video.
       </video>
     </div>
+    <section id="process" class="py-16 bg-white">
+      <h3 class="text-2xl font-bold text-center mb-8 mt-16">Conoce a Nuestro Equipo</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-4xl mx-auto">
+        <div class="team-member text-center">
+          <div class="mb-3 mx-auto w-32 h-32 rounded-full overflow-hidden border-4 border-transparent">
+            <img src="assets\WS1.png" alt="Saúl Rangel"
+              class="team-member-img w-full h-full object-cover rounded-full transition-all duration-300">
+          </div>
+          <h4 class="font-semibold">Saúl Rangel</h4>
+          <p class="text-gray-500 text-sm">Experto en marketing digital.<br>
+            Marketing político.<br>
+            Socio fundador OK Latino</p>
+        </div>
+        <div class="team-member text-center">
+          <div class="mb-3 mx-auto w-32 h-32 rounded-full overflow-hidden border-4 border-transparent">
+            <img src="assets\WP1.png" alt="Pablo Jiménez"
+              class="team-member-img w-full h-full object-cover rounded-full transition-all duration-300">
+          </div>
+          <h4 class="font-semibold">Pablo Jiménez</h4>
+          <p class="text-gray-500 text-sm">Experto en marketing digital.<br>
+            Productor audiovisual en marketing.<br>
+            Socio fundador OK Latino</p>
+        </div>
+        <div class="team-member text-center">
+          <div class="mb-3 mx-auto w-32 h-32 rounded-full overflow-hidden border-4 border-transparent">
+            <img src="assets\WR1.png" alt="Reyna Marín"
+              class="team-member-img w-full h-full object-cover rounded-full transition-all duration-300">
+          </div>
+          <h4 class="font-semibold">Reyna Marín</h4>
+          <p class="text-gray-500 text-sm">Experta en marketing digital.<br>
+            Directora general OK Latino.</p>
+        </div>
+      </div>
+      </div>
+    </section>
+
+    <section id="testimonials" class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-bold mb-4">Lo que Dicen Nuestros Clientes</h2>
+          <p class="text-gray-600 max-w-2xl mx-auto">Escucha a las empresas que han logrado un crecimiento notable con
+            nuestras estrategias.</p>
+        </div>
+        <div class="max-w-4xl mx-auto relative">
+          <div id="testimonial-carousel" class="overflow-hidden">
+            <div class="flex transition-transform duration-500" id="testimonial-slider">
+              <div class="testimonial-card w-full flex-shrink-0 px-4">
+                <div class="bg-gray-50 rounded-lg shadow-md p-6 md:p-8">
+                  <div class="flex text-yellow-400 mb-4"><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                      class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                  <p class="text-lg mb-6 text-gray-700">"OK LATINO transformó por completo nuestra presencia online. Su
+                    enfoque estratégico en nuestras redes sociales y SEO ha resultado en un aumento del 200% en leads
+                    calificados en solo tres meses."</p>
+                  <div class="flex items-center"><img
+                      src="https://cdn.pixabay.com/photo/2018/11/08/23/52/man-3803551_1280.jpg"
+                      alt="Cliente Carlos Rodríguez" class="w-12 h-12 rounded-full object-cover">
+                    <div class="ml-3">
+                      <h4 class="font-medium">Carlos Rodríguez</h4>
+                      <p class="text-sm text-gray-500">CEO, TechSolutions Inc.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="testimonial-card w-full flex-shrink-0 px-4">
+                <div class="bg-gray-50 rounded-lg shadow-md p-6 md:p-8">
+                  <div class="flex text-yellow-400 mb-4"><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                      class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                  <p class="text-lg mb-6 text-gray-700">"Trabajar con OK LATINO ha cambiado las reglas del juego. Su
+                    equipo es receptivo, conocedor y realmente se preocupa por nuestro éxito. Nuestras tasas de
+                    conversión han mejorado drásticamente."</p>
+                  <div class="flex items-center"><img
+                      src="https://cdn.pixabay.com/photo/2018/01/15/07/51/woman-3083383_1280.jpg"
+                      alt="Cliente María González" class="w-12 h-12 rounded-full object-cover">
+                    <div class="ml-3">
+                      <h4 class="font-medium">María González</h4>
+                      <p class="text-sm text-gray-500">Directora de Marketing, Marca de Belleza</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="testimonial-card w-full flex-shrink-0 px-4">
+                <div class="bg-gray-50 rounded-lg shadow-md p-6 md:p-8">
+                  <div class="flex text-yellow-400 mb-4"><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                      class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
+                  <p class="text-lg mb-6 text-gray-700">"Era escéptico, pero OK LATINO me demostró lo contrario. Su
+                    enfoque basado en datos y sus informes transparentes nos mostraron exactamente lo que estábamos
+                    obteniendo. ¡Altamente recomendado!"</p>
+                  <div class="flex items-center"><img
+                      src="https://cdn.pixabay.com/photo/2016/11/21/12/42/beard-1845166_1280.jpg"
+                      alt="Cliente Miguel Santos" class="w-12 h-12 rounded-full object-cover">
+                    <div class="ml-3">
+                      <h4 class="font-medium">Miguel Santos</h4>
+                      <p class="text-sm text-gray-500">Propietario, Cadena de Restaurantes</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial-controls flex justify-center mt-6 space-x-2">
+            <button class="w-3 h-3 rounded-full bg-gray-300 focus:outline-none" data-slide="0"></button>
+            <button class="w-3 h-3 rounded-full bg-gray-300 focus:outline-none" data-slide="1"></button>
+            <button class="w-3 h-3 rounded-full bg-gray-300 focus:outline-none" data-slide="2"></button>
+          </div>
+          <button id="prev-testimonial"
+            class="absolute top-1/2 -left-4 transform -translate-y-1/2 w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center text-gray-500 hover:bg-gray-100 focus:outline-none"><i
+              class="fas fa-chevron-left"></i></button>
+          <button id="next-testimonial"
+            class="absolute top-1/2 -right-4 transform -translate-y-1/2 w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center text-gray-500 hover:bg-gray-100 focus:outline-none"><i
+              class="fas fa-chevron-right"></i></button>
+        </div>
+      </div>
+    </section>
 
     <!-- SECCIÓN DE PROCESO CON ANIMACIÓN DE FÓRMULA MEJORADA -->
     <section id="process" class="py-16 bg-white">
@@ -622,84 +753,6 @@
       </div>
     </section>
 
-    <section id="testimonials" class="py-16 bg-white">
-      <div class="container mx-auto px-4">
-        <div class="text-center mb-12">
-          <h2 class="text-3xl font-bold mb-4">Lo que Dicen Nuestros Clientes</h2>
-          <p class="text-gray-600 max-w-2xl mx-auto">Escucha a las empresas que han logrado un crecimiento notable con
-            nuestras estrategias.</p>
-        </div>
-        <div class="max-w-4xl mx-auto relative">
-          <div id="testimonial-carousel" class="overflow-hidden">
-            <div class="flex transition-transform duration-500" id="testimonial-slider">
-              <div class="testimonial-card w-full flex-shrink-0 px-4">
-                <div class="bg-gray-50 rounded-lg shadow-md p-6 md:p-8">
-                  <div class="flex text-yellow-400 mb-4"><i class="fas fa-star"></i><i class="fas fa-star"></i><i
-                      class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                  <p class="text-lg mb-6 text-gray-700">"OK LATINO transformó por completo nuestra presencia online. Su
-                    enfoque estratégico en nuestras redes sociales y SEO ha resultado en un aumento del 200% en leads
-                    calificados en solo tres meses."</p>
-                  <div class="flex items-center"><img
-                      src="https://cdn.pixabay.com/photo/2018/11/08/23/52/man-3803551_1280.jpg"
-                      alt="Cliente Carlos Rodríguez" class="w-12 h-12 rounded-full object-cover">
-                    <div class="ml-3">
-                      <h4 class="font-medium">Carlos Rodríguez</h4>
-                      <p class="text-sm text-gray-500">CEO, TechSolutions Inc.</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="testimonial-card w-full flex-shrink-0 px-4">
-                <div class="bg-gray-50 rounded-lg shadow-md p-6 md:p-8">
-                  <div class="flex text-yellow-400 mb-4"><i class="fas fa-star"></i><i class="fas fa-star"></i><i
-                      class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                  <p class="text-lg mb-6 text-gray-700">"Trabajar con OK LATINO ha cambiado las reglas del juego. Su
-                    equipo es receptivo, conocedor y realmente se preocupa por nuestro éxito. Nuestras tasas de
-                    conversión han mejorado drásticamente."</p>
-                  <div class="flex items-center"><img
-                      src="https://cdn.pixabay.com/photo/2018/01/15/07/51/woman-3083383_1280.jpg"
-                      alt="Cliente María González" class="w-12 h-12 rounded-full object-cover">
-                    <div class="ml-3">
-                      <h4 class="font-medium">María González</h4>
-                      <p class="text-sm text-gray-500">Directora de Marketing, Marca de Belleza</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="testimonial-card w-full flex-shrink-0 px-4">
-                <div class="bg-gray-50 rounded-lg shadow-md p-6 md:p-8">
-                  <div class="flex text-yellow-400 mb-4"><i class="fas fa-star"></i><i class="fas fa-star"></i><i
-                      class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
-                  <p class="text-lg mb-6 text-gray-700">"Era escéptico, pero OK LATINO me demostró lo contrario. Su
-                    enfoque basado en datos y sus informes transparentes nos mostraron exactamente lo que estábamos
-                    obteniendo. ¡Altamente recomendado!"</p>
-                  <div class="flex items-center"><img
-                      src="https://cdn.pixabay.com/photo/2016/11/21/12/42/beard-1845166_1280.jpg"
-                      alt="Cliente Miguel Santos" class="w-12 h-12 rounded-full object-cover">
-                    <div class="ml-3">
-                      <h4 class="font-medium">Miguel Santos</h4>
-                      <p class="text-sm text-gray-500">Propietario, Cadena de Restaurantes</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="testimonial-controls flex justify-center mt-6 space-x-2">
-            <button class="w-3 h-3 rounded-full bg-gray-300 focus:outline-none" data-slide="0"></button>
-            <button class="w-3 h-3 rounded-full bg-gray-300 focus:outline-none" data-slide="1"></button>
-            <button class="w-3 h-3 rounded-full bg-gray-300 focus:outline-none" data-slide="2"></button>
-          </div>
-          <button id="prev-testimonial"
-            class="absolute top-1/2 -left-4 transform -translate-y-1/2 w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center text-gray-500 hover:bg-gray-100 focus:outline-none"><i
-              class="fas fa-chevron-left"></i></button>
-          <button id="next-testimonial"
-            class="absolute top-1/2 -right-4 transform -translate-y-1/2 w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center text-gray-500 hover:bg-gray-100 focus:outline-none"><i
-              class="fas fa-chevron-right"></i></button>
-        </div>
-      </div>
-    </section>
-
     <section id="about" class="py-16 bg-gray-50">
       <div class="container mx-auto px-4">
         <div class="text-center mb-12">
@@ -719,39 +772,6 @@
               campañas de marketing digital dirigidas.</p>
           </div>
         </div>
-        <h3 class="text-2xl font-bold text-center mb-8 mt-16">Conoce a Nuestro Equipo</h3>
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-4xl mx-auto">
-          <div class="team-member text-center">
-            <div class="mb-3 mx-auto w-32 h-32 rounded-full overflow-hidden border-4 border-transparent">
-              <img src="assets\WS1.png" alt="Saúl Rangel"
-                class="team-member-img w-full h-full object-cover rounded-full transition-all duration-300">
-            </div>
-            <h4 class="font-semibold">Saúl Rangel</h4>
-            <p class="text-gray-500 text-sm">Experto en marketing digital.<br>
-              Marketing político.<br>
-              Socio fundador OK Latino</p>
-          </div>
-          <div class="team-member text-center">
-            <div class="mb-3 mx-auto w-32 h-32 rounded-full overflow-hidden border-4 border-transparent">
-              <img src="assets\WP1.png" alt="Pablo Jiménez"
-                class="team-member-img w-full h-full object-cover rounded-full transition-all duration-300">
-            </div>
-            <h4 class="font-semibold">Pablo Jiménez</h4>
-            <p class="text-gray-500 text-sm">Experto en marketing digital.<br>
-              Productor audiovisual en marketing.<br>
-              Socio fundador OK Latino</p>
-          </div>
-          <div class="team-member text-center">
-            <div class="mb-3 mx-auto w-32 h-32 rounded-full overflow-hidden border-4 border-transparent">
-              <img src="assets\WR1.png" alt="Reyna Marín"
-                class="team-member-img w-full h-full object-cover rounded-full transition-all duration-300">
-            </div>
-            <h4 class="font-semibold">Reyna Marín</h4>
-            <p class="text-gray-500 text-sm">Experta en marketing digital.<br>
-              Directora general OK Latino.</p>
-          </div>
-        </div>
-      </div>
     </section>
 
     <section id="contact" class="py-16 bg-white">
@@ -887,11 +907,11 @@
   </footer>
 
   <div class="floating-buttons">
-    <a href="https://wa.me/15125550123" target="_blank" class="floating-btn whatsapp-btn"
+    <a href="https://wa.me/522211780331" target="_blank" class="floating-btn whatsapp-btn"
       aria-label="Contactar por WhatsApp">
       <i class="fab fa-whatsapp"></i>
     </a>
-    <a href="https://m.me/oklatino" target="_blank" class="floating-btn messenger-btn"
+    <a href="https://m.me/OkGuerreroTv" target="_blank" class="floating-btn messenger-btn"
       aria-label="Contactar por Messenger">
       <i class="fab fa-facebook-messenger"></i>
     </a>
