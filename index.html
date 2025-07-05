@@ -34,12 +34,15 @@
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
       transition: all 0.3s ease-in-out;
     }
+
     .header.scrolled {
-        padding-top: 0.5rem;
-        padding-bottom: 0.5rem;
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
     }
+
     .header.scrolled .h-10 {
-        height: 2rem; /* 32px */
+      height: 2rem;
+      /* 32px */
     }
 
     .btn-primary {
@@ -69,17 +72,20 @@
     .hero {
       position: relative;
     }
-    
+
     .hero-overlay {
-        background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 60%, rgba(0,0,0,0.2) 100%);
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.4) 60%, rgba(0, 0, 0, 0.2) 100%);
     }
 
     .text-outline {
-      text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
+      text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
     }
 
     /* --- Elementos Interactivos --- */
-    .hover\:text-brand-red:hover { color: var(--brand-red); }
+    .hover\:text-brand-red:hover {
+      color: var(--brand-red);
+    }
+
     .focus\:border-brand-red:focus {
       border-color: var(--brand-red);
       box-shadow: 0 0 0 3px rgba(203, 0, 0, 0.2);
@@ -89,7 +95,7 @@
     .service-card {
       transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
       border-top: 4px solid #e2e8f0;
-      box-shadow: 0 4px 25px -5px rgba(0,0,0,0.08);
+      box-shadow: 0 4px 25px -5px rgba(0, 0, 0, 0.08);
       /* GSAP se encargará ahora de la aparición, así que ocultamos por defecto */
       opacity: 0;
       transform: translateY(30px);
@@ -100,10 +106,10 @@
       box-shadow: 0 25px 40px -10px rgba(0, 0, 0, 0.12), 0 10px 20px -10px rgba(0, 0, 0, 0.1);
       border-top-color: var(--brand-red);
     }
-    
+
     .service-card.tapped {
-        transform: translateY(-12px) scale(0.98);
-        box-shadow: 0 15px 30px -8px rgba(0, 0, 0, 0.15);
+      transform: translateY(-12px) scale(0.98);
+      box-shadow: 0 15px 30px -8px rgba(0, 0, 0, 0.15);
     }
 
     .service-card.highlighted {
@@ -111,22 +117,38 @@
       position: relative;
       overflow: hidden;
     }
-    
+
     @keyframes subtle-glow {
-        0% { box-shadow: 0 0 15px -5px rgba(203, 0, 0, 0.3); }
-        50% { box-shadow: 0 0 25px 0px rgba(203, 0, 0, 0.5); }
-        100% { box-shadow: 0 0 15px -5px rgba(203, 0, 0, 0.3); }
-    }
-    
-    .service-card.highlighted {
-        animation: subtle-glow 3s infinite ease-in-out;
+      0% {
+        box-shadow: 0 0 15px -5px rgba(203, 0, 0, 0.3);
+      }
+
+      50% {
+        box-shadow: 0 0 25px 0px rgba(203, 0, 0, 0.5);
+      }
+
+      100% {
+        box-shadow: 0 0 15px -5px rgba(203, 0, 0, 0.3);
+      }
     }
 
-    .service-card-popular-tag { background-color: var(--brand-red); }
-    .text-brand-red { color: var(--brand-red); }
+    .service-card.highlighted {
+      animation: subtle-glow 3s infinite ease-in-out;
+    }
+
+    .service-card-popular-tag {
+      background-color: var(--brand-red);
+    }
+
+    .text-brand-red {
+      color: var(--brand-red);
+    }
 
     /* --- Testimonios y Equipo --- */
-    .testimonial-controls button.active { background-color: var(--brand-red); }
+    .testimonial-controls button.active {
+      background-color: var(--brand-red);
+    }
+
     .team-member:hover .team-member-img {
       border-color: var(--brand-red);
       transform: scale(1.05);
@@ -134,116 +156,197 @@
 
     /* --- Menú Móvil --- */
     @media (max-width: 768px) {
-      .nav-menu { 
-        display: none; 
+      .nav-menu {
+        display: none;
         transform: translateY(-100%);
         transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
       }
+
       .nav-menu.open {
-        display: flex; position: absolute; top: 100%; left: 0; right: 0;
-        background: white; flex-direction: column; padding: 1rem;
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); z-index: 999;
+        display: flex;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: white;
+        flex-direction: column;
+        padding: 1rem;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        z-index: 999;
         transform: translateY(0);
       }
     }
 
     /* --- Botones Flotantes --- */
     .floating-buttons {
-      position: fixed; bottom: 20px; right: 20px; z-index: 1000;
-      display: flex; flex-direction: column; gap: 10px;
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
+
     .floating-btn {
-      width: 60px; height: 60px; border-radius: 50%; display: flex;
-      align-items: center; justify-content: center; color: white;
-      font-size: 28px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 28px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
       transition: transform 0.2s ease;
     }
-    .floating-btn:hover { transform: scale(1.1); }
-    .whatsapp-btn { background-color: #25D366; }
-    .messenger-btn { background-color: #00B2FF; }
+
+    .floating-btn:hover {
+      transform: scale(1.1);
+    }
+
+    .whatsapp-btn {
+      background-color: #25D366;
+    }
+
+    .messenger-btn {
+      background-color: #00B2FF;
+    }
 
     /* Contenedor del video */
     .video-container {
-      width: 90%; max-width: 1200px; margin: 4rem auto;
-      border-radius: 12px; overflow: hidden;
+      width: 90%;
+      max-width: 1200px;
+      margin: 4rem auto;
+      border-radius: 12px;
+      overflow: hidden;
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
     }
-    video { width: 100%; height: auto; display: block; }
-    
+
+    video {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
     /* --- INICIO: ESTILOS DE ANIMACIÓN DE CRECIMIENTO DE NEGOCIO --- */
     #process-animation-container {
-        position: relative; height: 400px; width: 100%;
-        max-width: 600px; margin: auto; overflow: hidden;
+      position: relative;
+      height: 400px;
+      width: 100%;
+      max-width: 600px;
+      margin: auto;
+      overflow: hidden;
     }
+
     .process-ingredient {
-        position: absolute; top: 0; left: 50%;
-        transform: translate(-50%, -80px); text-align: center;
-        width: 120px; opacity: 0; color: #DC2626; z-index: 5; 
-        transition: opacity 0.5s ease-out, transform 1.5s ease-in-out;
-        display: flex; flex-direction: column; align-items: center;
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translate(-50%, -80px);
+      text-align: center;
+      width: 120px;
+      opacity: 0;
+      color: #DC2626;
+      z-index: 5;
+      transition: opacity 0.5s ease-out, transform 1.5s ease-in-out;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
+
     .business-stage {
-        position: absolute; bottom: 50px; left: 50%;
-        transform: translate(-50%, 0) scale(0.8); font-size: 8rem;
-        color: #e5e7eb; opacity: 0; z-index: 10;
-        transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out, color 0.5s ease-in-out;
-        display: flex; justify-content: center; align-items: center;
+      position: absolute;
+      bottom: 50px;
+      left: 50%;
+      transform: translate(-50%, 0) scale(0.8);
+      font-size: 8rem;
+      color: #e5e7eb;
+      opacity: 0;
+      z-index: 10;
+      transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out, color 0.5s ease-in-out;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
+
     .business-stage.active {
-        opacity: 1; transform: translate(-50%, 0) scale(1); color: #DC2626;
+      opacity: 1;
+      transform: translate(-50%, 0) scale(1);
+      color: #DC2626;
     }
+
     .business-stage.active img {
-        filter: invert(19%) sepia(82%) saturate(3744%) hue-rotate(347deg) brightness(93%) contrast(91%);
+      filter: invert(19%) sepia(82%) saturate(3744%) hue-rotate(347deg) brightness(93%) contrast(91%);
     }
+
     .result-display {
-        position: absolute; bottom: 120px; left: 50%;
-        transform: translate(-50%, 50px); opacity: 0; text-align: center;
-        z-index: 20; transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
-        display: flex; flex-direction: column; align-items: center;
+      position: absolute;
+      bottom: 120px;
+      left: 50%;
+      transform: translate(-50%, 50px);
+      opacity: 0;
+      text-align: center;
+      z-index: 20;
+      transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
+
     /* --- FIN: ESTILOS DE ANIMACIÓN DE CRECIMIENTO DE NEGOCIO --- */
 
     /* --- Animación de Pulso para Imagen --- */
     @keyframes pulse-custom {
-      0%, 100% {
-        transform: scale(1); box-shadow: 0 0 0 0 rgba(203, 0, 0, 0.4);
+
+      0%,
+      100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(203, 0, 0, 0.4);
       }
+
       50% {
-        transform: scale(1.05); box-shadow: 0 0 0 25px rgba(203, 0, 0, 0);
+        transform: scale(1.05);
+        box-shadow: 0 0 0 25px rgba(203, 0, 0, 0);
       }
     }
-    .animate-pulse-custom { animation: pulse-custom 2.5s infinite; }
+
+    .animate-pulse-custom {
+      animation: pulse-custom 2.5s infinite;
+    }
 
     /* --- Se elimina la clase .animate-on-scroll; GSAP la reemplaza --- */
     .gsap-fade-up {
-        opacity: 0;
-        transform: translateY(40px);
+      opacity: 0;
+      transform: translateY(40px);
     }
 
     /* NUEVO: Fondo con textura sutil para secciones */
     .section-textured-bg {
-        background-color: var(--light-gray);
-        background-image:  radial-gradient(#e9ecef 1px, transparent 1px);
-        background-size: 20px 20px;
-    }
-    
-    /* NUEVO: Divisor de sección en ángulo */
-    .angled-divider {
-        position: relative;
-        height: 100px;
-        background-color: white; /* Color de la sección de abajo */
-    }
-    .angled-divider::before {
-        content: '';
-        position: absolute;
-        top: -50px;
-        left: 0;
-        width: 100%;
-        height: 50px;
-        background-color: var(--light-gray); /* Color de la sección de arriba */
-        clip-path: polygon(0 100%, 100% 0, 100% 100%);
+      background-color: var(--light-gray);
+      background-image: radial-gradient(#e9ecef 1px, transparent 1px);
+      background-size: 20px 20px;
     }
 
+    /* NUEVO: Divisor de sección en ángulo */
+    .angled-divider {
+      position: relative;
+      height: 100px;
+      background-color: white;
+      /* Color de la sección de abajo */
+    }
+
+    .angled-divider::before {
+      content: '';
+      position: absolute;
+      top: -50px;
+      left: 0;
+      width: 100%;
+      height: 50px;
+      background-color: var(--light-gray);
+      /* Color de la sección de arriba */
+      clip-path: polygon(0 100%, 100% 0, 100% 100%);
+    }
   </style>
 </head>
 
@@ -271,6 +374,16 @@
         class="btn-primary hidden md:inline-block px-6 py-2 text-white font-medium rounded-full shadow-lg">Agendar
         Consulta</a>
     </div>
+    <div id="mobile-menu" class="nav-menu md:hidden">
+      <a href="#services" class="block py-2 px-4 text-gray-700 hover:text-brand-red font-medium">Servicios</a>
+      <a href="#process" class="block py-2 px-4 text-gray-700 hover:text-brand-red font-medium">Proceso</a>
+      <a href="#testimonials" class="block py-2 px-4 text-gray-700 hover:text-brand-red font-medium">Testimonios</a>
+      <a href="#about" class="block py-2 px-4 text-gray-700 hover:text-brand-red font-medium">Nosotros</a>
+      <a href="#contact" class="block py-2 px-4 text-gray-700 hover:text-brand-red font-medium">Contacto</a>
+      <a href="#booking"
+        class="btn-primary block mx-4 my-2 px-6 py-2 text-white font-medium rounded-full text-center">Agendar
+        Consulta</a>
+    </div>
   </header>
 
   <main class="pt-16">
@@ -283,15 +396,17 @@
       <div class="absolute top-0 left-0 w-full h-full hero-overlay z-10"></div>
       <div class="relative container mx-auto px-4 py-16 text-center z-20">
         <div id="hero-content"> <!-- Contenedor para animación GSAP -->
-            <!-- RUTA CORREGIDA -->
-            <img src="assets/OKLTWEB.png" alt="OK Latino Logo" class="h-16 mx-auto mb-4"
-                 onerror="this.onerror=null;this.src='https://placehold.co/200x64/ffffff/cb0000?text=OK+Latino';">
-            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6 text-outline">
-                Campañas de marketing digital con resultados reales y escalables.
-            </h1>
-            <p class="text-xl text-white mb-8 max-w-2xl mx-auto text-outline">Especializados en Meta Business y creación de landing page exitosas.</p>
-            <a href="#services"
-               class="btn-secondary inline-block px-8 py-3 text-white font-medium rounded-full shadow-lg text-lg">Ver Nuestros Planes</a>
+          <!-- RUTA CORREGIDA -->
+          <img src="assets/OKLTWEB.png" alt="OK Latino Logo" class="h-16 mx-auto mb-4"
+            onerror="this.onerror=null;this.src='https://placehold.co/200x64/ffffff/cb0000?text=OK+Latino';">
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6 text-outline">
+            Campañas de marketing digital con resultados reales y escalables.
+          </h1>
+          <p class="text-xl text-white mb-8 max-w-2xl mx-auto text-outline">Especializados en Meta Business y creación
+            de landing page exitosas.</p>
+          <a href="#services"
+            class="btn-secondary inline-block px-8 py-3 text-white font-medium rounded-full shadow-lg text-lg">Ver
+            Nuestros Planes</a>
         </div>
       </div>
     </section>
@@ -302,13 +417,14 @@
         Lo sentimos, tu navegador no soporta la etiqueta de video.
       </video>
     </div>
-    
+
     <section id="team-section" class="py-20 bg-white">
       <div class="container mx-auto px-4">
         <h3 class="text-3xl font-bold text-center mb-12 gsap-fade-up">Conoce a Nuestro Equipo</h3>
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-4xl mx-auto">
           <div class="team-member text-center gsap-fade-up">
-            <div class="mb-4 mx-auto w-32 h-32 rounded-full overflow-hidden border-4 border-transparent transition-all duration-300">
+            <div
+              class="mb-4 mx-auto w-32 h-32 rounded-full overflow-hidden border-4 border-transparent transition-all duration-300">
               <!-- RUTA CORREGIDA -->
               <img src="assets/WS1.png" alt="Saúl Rangel"
                 class="team-member-img w-full h-full object-cover rounded-full transition-all duration-300">
@@ -319,7 +435,8 @@
               Socio fundador OK Latino</p>
           </div>
           <div class="team-member text-center gsap-fade-up" style="--stagger-delay: 0.15s;">
-            <div class="mb-4 mx-auto w-32 h-32 rounded-full overflow-hidden border-4 border-transparent transition-all duration-300">
+            <div
+              class="mb-4 mx-auto w-32 h-32 rounded-full overflow-hidden border-4 border-transparent transition-all duration-300">
               <!-- RUTA CORREGIDA -->
               <img src="assets/WP1.png" alt="Pablo Jiménez"
                 class="team-member-img w-full h-full object-cover rounded-full transition-all duration-300">
@@ -330,7 +447,8 @@
               Socio fundador OK Latino</p>
           </div>
           <div class="team-member text-center gsap-fade-up" style="--stagger-delay: 0.3s;">
-            <div class="mb-4 mx-auto w-32 h-32 rounded-full overflow-hidden border-4 border-transparent transition-all duration-300">
+            <div
+              class="mb-4 mx-auto w-32 h-32 rounded-full overflow-hidden border-4 border-transparent transition-all duration-300">
               <!-- RUTA CORREGIDA -->
               <img src="assets/WR1.png" alt="Reyna Marín"
                 class="team-member-img w-full h-full object-cover rounded-full transition-all duration-300">
@@ -422,53 +540,54 @@
     </section>
 
     <section id="process" class="py-20 bg-white">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-12 gsap-fade-up">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4">Nuestra Fórmula para el Éxito</h2>
-                <p class="text-gray-600 max-w-2xl mx-auto">Así es como combinamos nuestros pilares para hacer crecer tu negocio.</p>
-            </div>
-            
-            <div id="process-animation-container" class="bg-white rounded-lg shadow-xl p-4">
-                <!-- Ingredientes -->
-                <div class="process-ingredient">
-                    <i class="fas fa-chart-line text-4xl mb-2"></i>
-                    <p class="font-semibold">Análisis</p>
-                </div>
-                <div class="process-ingredient">
-                    <i class="fas fa-lightbulb text-4xl mb-2"></i>
-                    <p class="font-semibold">Creatividad</p>
-                </div>
-                <div class="process-ingredient">
-                    <i class="fas fa-share-alt text-4xl mb-2"></i>
-                    <p class="font-semibold">Estrategia Social</p>
-                </div>
-                <div class="process-ingredient">
-                    <i class="fas fa-search-dollar text-4xl mb-2"></i>
-                    <p class="font-semibold">Optimización SEO</p>
-                </div>
-                
-                <!-- Etapas del Negocio -->
-                <div class="business-stage active">
-                    <i class="fas fa-store"></i>
-                </div>
-                <div class="business-stage">
-                    <i class="fas fa-building"></i>
-                </div>
-                <div class="business-stage">
-                    <i class="fas fa-city"></i>
-                </div>
-                <div class="business-stage">
-                    <i class="fas fa-industry"></i>
-                </div>
-                
-                <!-- Resultado Final -->
-                <div class="result-display">
-                    <i class="fas fa-rocket text-5xl text-red-600 mb-3"></i>
-                    <p class="text-2xl font-bold">Resultados</p>
-                    <p class="text-gray-600">¡Tu negocio despega!</p>
-                </div>
-            </div>
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-12 gsap-fade-up">
+          <h2 class="text-3xl md:text-4xl font-bold mb-4">Nuestra Fórmula para el Éxito</h2>
+          <p class="text-gray-600 max-w-2xl mx-auto">Así es como combinamos nuestros pilares para hacer crecer tu
+            negocio.</p>
         </div>
+
+        <div id="process-animation-container" class="bg-white rounded-lg shadow-xl p-4">
+          <!-- Ingredientes -->
+          <div class="process-ingredient">
+            <i class="fas fa-chart-line text-4xl mb-2"></i>
+            <p class="font-semibold">Análisis</p>
+          </div>
+          <div class="process-ingredient">
+            <i class="fas fa-lightbulb text-4xl mb-2"></i>
+            <p class="font-semibold">Creatividad</p>
+          </div>
+          <div class="process-ingredient">
+            <i class="fas fa-share-alt text-4xl mb-2"></i>
+            <p class="font-semibold">Estrategia Social</p>
+          </div>
+          <div class="process-ingredient">
+            <i class="fas fa-search-dollar text-4xl mb-2"></i>
+            <p class="font-semibold">Optimización SEO</p>
+          </div>
+
+          <!-- Etapas del Negocio -->
+          <div class="business-stage active">
+            <i class="fas fa-store"></i>
+          </div>
+          <div class="business-stage">
+            <i class="fas fa-building"></i>
+          </div>
+          <div class="business-stage">
+            <i class="fas fa-city"></i>
+          </div>
+          <div class="business-stage">
+            <i class="fas fa-industry"></i>
+          </div>
+
+          <!-- Resultado Final -->
+          <div class="result-display">
+            <i class="fas fa-rocket text-5xl text-red-600 mb-3"></i>
+            <p class="text-2xl font-bold">Resultados</p>
+            <p class="text-gray-600">¡Tu negocio despega!</p>
+          </div>
+        </div>
+      </div>
     </section>
 
     <section id="services" class="py-20 section-textured-bg">
@@ -894,11 +1013,11 @@
       // --- Header dinámico al hacer scroll (sin cambios) ---
       const header = document.querySelector('.header');
       window.addEventListener('scroll', () => {
-          if (window.scrollY > 50) {
-              header.classList.add('scrolled');
-          } else {
-              header.classList.remove('scrolled');
-          }
+        if (window.scrollY > 50) {
+          header.classList.add('scrolled');
+        } else {
+          header.classList.remove('scrolled');
+        }
       });
 
       // --- LÓGICA DE ANIMACIÓN DE CRECIMIENTO DE NEGOCIO (sin cambios) ---
@@ -1049,7 +1168,7 @@
           }
         });
       }
-      
+
       // --- Efecto de toque para tarjetas en móvil (sin cambios) ---
       document.querySelectorAll('.service-card').forEach(card => {
         card.addEventListener('touchstart', () => {
@@ -1070,84 +1189,84 @@
   <!-- ========================================================== -->
   <script id="new-tech-init">
     document.addEventListener('DOMContentLoaded', function () {
-        
-        // --- 1. INICIALIZACIÓN DE LENIS (SCROLL SUAVE) ---
-        const lenis = new Lenis({
-            duration: 1.2,
-            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-        });
 
-        function raf(time) {
-            lenis.raf(time);
-            requestAnimationFrame(raf);
-        }
+      // --- 1. INICIALIZACIÓN DE LENIS (SCROLL SUAVE) ---
+      const lenis = new Lenis({
+        duration: 1.2,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      });
 
+      function raf(time) {
+        lenis.raf(time);
         requestAnimationFrame(raf);
+      }
 
-        // --- Integración de Lenis con los enlaces de ancla ---
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                if (targetId.length > 1 && targetId !== '#') {
-                    const headerOffset = document.querySelector('.header').offsetHeight;
-                    lenis.scrollTo(targetId, { offset: -headerOffset });
-                }
-                // Cierra el menú móvil si está abierto
-                const mobileMenu = document.getElementById('mobile-menu');
-                if(mobileMenu && mobileMenu.classList.contains('open')) {
-                    mobileMenu.classList.remove('open');
-                }
-            });
+      requestAnimationFrame(raf);
+
+      // --- Integración de Lenis con los enlaces de ancla ---
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          const targetId = this.getAttribute('href');
+          if (targetId.length > 1 && targetId !== '#') {
+            const headerOffset = document.querySelector('.header').offsetHeight;
+            lenis.scrollTo(targetId, { offset: -headerOffset });
+          }
+          // Cierra el menú móvil si está abierto
+          const mobileMenu = document.getElementById('mobile-menu');
+          if (mobileMenu && mobileMenu.classList.contains('open')) {
+            mobileMenu.classList.remove('open');
+          }
         });
+      });
 
-        
-        // --- 2. INICIALIZACIÓN DE GSAP (ANIMACIONES) ---
-        gsap.registerPlugin(ScrollTrigger);
 
-        // --- Animación de entrada para el Hero ---
-        const heroContent = document.querySelector("#hero-content");
-        if (heroContent) {
-            gsap.from(heroContent.children, {
-                opacity: 0,
-                y: 30,
-                duration: 1,
-                stagger: 0.2,
-                ease: "power3.out",
-                delay: 0.5
-            });
-        }
-        
-        // --- Animación genérica de aparición para secciones ---
-        const fadeUpElements = document.querySelectorAll(".gsap-fade-up");
-        fadeUpElements.forEach(el => {
-            gsap.to(el, {
-                scrollTrigger: {
-                    trigger: el,
-                    start: "top 85%",
-                    toggleActions: "play none none none"
-                },
-                opacity: 1,
-                y: 0,
-                duration: 1,
-                ease: "power3.out",
-                delay: el.style.getPropertyValue("--stagger-delay") || 0
-            });
+      // --- 2. INICIALIZACIÓN DE GSAP (ANIMACIONES) ---
+      gsap.registerPlugin(ScrollTrigger);
+
+      // --- Animación de entrada para el Hero ---
+      const heroContent = document.querySelector("#hero-content");
+      if (heroContent) {
+        gsap.from(heroContent.children, {
+          opacity: 0,
+          y: 30,
+          duration: 1,
+          stagger: 0.2,
+          ease: "power3.out",
+          delay: 0.5
         });
+      }
 
-        // --- Animación escalonada para las tarjetas de servicios ---
-        gsap.to(".service-card", {
-            scrollTrigger: {
-                trigger: "#services",
-                start: "top 70%",
-                toggleActions: "play none none none"
-            },
-            opacity: 1,
-            y: 0,
-            stagger: 0.15,
-            duration: 0.8,
-            ease: "power2.out"
+      // --- Animación genérica de aparición para secciones ---
+      const fadeUpElements = document.querySelectorAll(".gsap-fade-up");
+      fadeUpElements.forEach(el => {
+        gsap.to(el, {
+          scrollTrigger: {
+            trigger: el,
+            start: "top 85%",
+            toggleActions: "play none none none"
+          },
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          ease: "power3.out",
+          delay: el.style.getPropertyValue("--stagger-delay") || 0
         });
+      });
+
+      // --- Animación escalonada para las tarjetas de servicios ---
+      gsap.to(".service-card", {
+        scrollTrigger: {
+          trigger: "#services",
+          start: "top 70%",
+          toggleActions: "play none none none"
+        },
+        opacity: 1,
+        y: 0,
+        stagger: 0.15,
+        duration: 0.8,
+        ease: "power2.out"
+      });
 
     });
   </script>
