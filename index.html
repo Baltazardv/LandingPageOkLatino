@@ -12,356 +12,250 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style id="app-style">
     /* --- Estilos Base y Branding "OK Latino" --- */
+    :root {
+      --brand-red: #cb0000;
+      --brand-red-hover: #ff0000;
+      --dark-gray: #2d3748;
+      --light-gray: #f8f9fa;
+    }
+
     body {
       font-family: 'Poppins', sans-serif;
-      scroll-behavior: smooth;
-      color: #333;
-      background-color: #f9f9f9;
+      /* Se elimina 'scroll-behavior: smooth;' para que Lenis tome el control total. */
+      color: var(--dark-gray);
+      background-color: #ffffff;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
     .header {
-      background-color: white;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      background-color: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease-in-out;
+    }
+    .header.scrolled {
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+    }
+    .header.scrolled .h-10 {
+        height: 2rem; /* 32px */
     }
 
     .btn-primary {
-      background: #cb0000;
+      background: var(--brand-red);
       color: white;
-      transition: all 0.3s ease;
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     }
 
     .btn-primary:hover {
-      background: #ff0000;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(203, 0, 0, 0.3);
+      background: var(--brand-red-hover);
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 7px 20px rgba(203, 0, 0, 0.35);
     }
 
     .btn-secondary {
-      background: linear-gradient(90deg, #ff0000 0%, #e27676 100%);
+      background: linear-gradient(45deg, var(--brand-red-hover) 0%, #e27676 100%);
       color: white;
-      transition: all 0.3s ease;
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     }
 
     .btn-secondary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(255, 0, 0, 0.3);
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 7px 20px rgba(255, 0, 0, 0.3);
     }
 
     /* --- Sección Hero --- */
     .hero {
       position: relative;
     }
+    
+    .hero-overlay {
+        background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 60%, rgba(0,0,0,0.2) 100%);
+    }
 
     .text-outline {
-      text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+      text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
     }
 
     /* --- Elementos Interactivos --- */
-    .hover\:text-brand-red:hover {
-      color: #cb0000;
-    }
-
+    .hover\:text-brand-red:hover { color: var(--brand-red); }
     .focus\:border-brand-red:focus {
-      border-color: #cb0000;
+      border-color: var(--brand-red);
+      box-shadow: 0 0 0 3px rgba(203, 0, 0, 0.2);
     }
 
-    /* --- Tarjetas de Servicios --- */
+    /* --- Tarjetas de Servicios Mejoradas --- */
     .service-card {
-      transition: all 0.3s ease;
-      border-top: 4px solid #e0e0e0;
-
+      transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+      border-top: 4px solid #e2e8f0;
+      box-shadow: 0 4px 25px -5px rgba(0,0,0,0.08);
+      /* GSAP se encargará ahora de la aparición, así que ocultamos por defecto */
+      opacity: 0;
+      transform: translateY(30px);
     }
 
     .service-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
-      border-top-color: #cb0000;
+      transform: translateY(-12px);
+      box-shadow: 0 25px 40px -10px rgba(0, 0, 0, 0.12), 0 10px 20px -10px rgba(0, 0, 0, 0.1);
+      border-top-color: var(--brand-red);
+    }
+    
+    .service-card.tapped {
+        transform: translateY(-12px) scale(0.98);
+        box-shadow: 0 15px 30px -8px rgba(0, 0, 0, 0.15);
     }
 
     .service-card.highlighted {
-      border-top-color: #cb0000;
+      border-top-color: var(--brand-red);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    @keyframes subtle-glow {
+        0% { box-shadow: 0 0 15px -5px rgba(203, 0, 0, 0.3); }
+        50% { box-shadow: 0 0 25px 0px rgba(203, 0, 0, 0.5); }
+        100% { box-shadow: 0 0 15px -5px rgba(203, 0, 0, 0.3); }
+    }
+    
+    .service-card.highlighted {
+        animation: subtle-glow 3s infinite ease-in-out;
     }
 
-    .service-card-popular-tag {
-      background-color: #cb0000;
-    }
-
-    .text-brand-red {
-      color: #cb0000;
-    }
+    .service-card-popular-tag { background-color: var(--brand-red); }
+    .text-brand-red { color: var(--brand-red); }
 
     /* --- Testimonios y Equipo --- */
-    .testimonial-controls button.active {
-      background-color: #cb0000;
-    }
-
+    .testimonial-controls button.active { background-color: var(--brand-red); }
     .team-member:hover .team-member-img {
-      border-color: #cb0000;
+      border-color: var(--brand-red);
       transform: scale(1.05);
     }
 
     /* --- Menú Móvil --- */
     @media (max-width: 768px) {
-      .nav-menu {
-        display: none;
+      .nav-menu { 
+        display: none; 
+        transform: translateY(-100%);
+        transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
       }
-
       .nav-menu.open {
-        display: flex;
-        position: absolute;
-        top: 70px;
-        left: 0;
-        right: 0;
-        background: white;
-        flex-direction: column;
-        padding: 1rem;
-        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-        z-index: 999;
+        display: flex; position: absolute; top: 100%; left: 0; right: 0;
+        background: white; flex-direction: column; padding: 1rem;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); z-index: 999;
+        transform: translateY(0);
       }
     }
 
     /* --- Botones Flotantes --- */
     .floating-buttons {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      z-index: 1000;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
+      position: fixed; bottom: 20px; right: 20px; z-index: 1000;
+      display: flex; flex-direction: column; gap: 10px;
     }
-
     .floating-btn {
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-size: 28px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      width: 60px; height: 60px; border-radius: 50%; display: flex;
+      align-items: center; justify-content: center; color: white;
+      font-size: 28px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
       transition: transform 0.2s ease;
     }
-
-    .floating-btn:hover {
-      transform: scale(1.1);
-    }
-
-    .whatsapp-btn {
-      background-color: #25D366;
-    }
-
-    .messenger-btn {
-      background-color: #00B2FF;
-    }
+    .floating-btn:hover { transform: scale(1.1); }
+    .whatsapp-btn { background-color: #25D366; }
+    .messenger-btn { background-color: #00B2FF; }
 
     /* Contenedor del video */
     .video-container {
-      width: 90%;
-      /* Ocupa el 90% del ancho de la pantalla */
-      max-width: 1200px;
-      /* Pero no más de 1200px para pantallas grandes */
-      margin: 20px auto;
-      /* Centrado y con un poco de espacio vertical */
-      border-radius: 12px;
-      /* Bordes redondeados para un look moderno */
-      overflow: hidden;
-      /* Asegura que el video no se salga de los bordes redondeados */
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-      /* Sombra para dar profundidad */
+      width: 90%; max-width: 1200px; margin: 4rem auto;
+      border-radius: 12px; overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
     }
-
-    /* Estilos para la etiqueta de video */
-    video {
-      /* Hace que el video sea flexible y se adapte al tamaño del contenedor */
-      width: 100%;
-      height: auto;
-      /* Elimina cualquier espacio extra debajo del video */
-      display: block;
+    video { width: 100%; height: auto; display: block; }
+    
+    /* --- INICIO: ESTILOS DE ANIMACIÓN DE CRECIMIENTO DE NEGOCIO --- */
+    #process-animation-container {
+        position: relative; height: 400px; width: 100%;
+        max-width: 600px; margin: auto; overflow: hidden;
     }
-
-    /* --- Animación de Fórmula en Matraz --- */
-    #formula-container {
-      position: relative;
-      height: 400px;
-      width: 100%;
-      max-width: 600px;
-      margin: auto;
+    .process-ingredient {
+        position: absolute; top: 0; left: 50%;
+        transform: translate(-50%, -80px); text-align: center;
+        width: 120px; opacity: 0; color: #DC2626; z-index: 5; 
+        transition: opacity 0.5s ease-out, transform 1.5s ease-in-out;
+        display: flex; flex-direction: column; align-items: center;
     }
-
-    .ingredient-icon {
-      position: absolute;
-      text-align: center;
-      width: 80px;
-      opacity: 0;
-      left: 50%;
-      transform: translate(-50%, -50px);
-      animation-name: fall-in-flask;
-      animation-duration: 1.5s;
-      animation-timing-function: cubic-bezier(0.6, -0.28, 0.735, 0.045);
-      animation-fill-mode: forwards;
+    .business-stage {
+        position: absolute; bottom: 50px; left: 50%;
+        transform: translate(-50%, 0) scale(0.8); font-size: 8rem;
+        color: #e5e7eb; opacity: 0; z-index: 10;
+        transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out, color 0.5s ease-in-out;
+        display: flex; justify-content: center; align-items: center;
     }
-
-    .flask-container {
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 224px;
-      /* 14rem */
-      height: 224px;
-      z-index: 10;
+    .business-stage.active {
+        opacity: 1; transform: translate(-50%, 0) scale(1); color: #DC2626;
     }
-
-    #flask-icon {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.5));
+    .business-stage.active img {
+        filter: invert(19%) sepia(82%) saturate(3744%) hue-rotate(347deg) brightness(93%) contrast(91%);
     }
-
-    .flask-liquid-wrapper {
-      position: absolute;
-      bottom: 35px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 170px;
-      height: 110px;
-      clip-path: polygon(38% 0, 62% 0, 100% 100%, 0% 100%);
-      z-index: 5;
-      border-radius: 15px;
-      overflow: hidden;
-      backdrop-filter: blur(3px);
-      filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
-      background-color: rgba(255, 255, 255, 0.2);
-      /* Fondo semi-transparente */
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      /* Borde sutil */
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1),
-        /* Sombra suave */
-        0 0 20px rgba(255, 255, 255, 0.2) inset;
-      /* Resaltado interior */
+    .result-display {
+        position: absolute; bottom: 120px; left: 50%;
+        transform: translate(-50%, 50px); opacity: 0; text-align: center;
+        z-index: 20; transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+        display: flex; flex-direction: column; align-items: center;
     }
-
-    .flask-liquid {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 0;
-      /* Inicia vacío */
-      background: #fb7e7e;
-      transition: height 0.5s ease-out;
-      filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.5));
-    }
-
-    .bubbles {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      opacity: 0;
-      transition: opacity 0.3s;
-      backdrop-filter: blur(10px);
-    }
-
-    .bubble {
-      position: absolute;
-      backdrop-filter: blur(10px);
-      background-color: rgba(255, 255, 255, 0.5);
-      border-radius: 50%;
-      animation: rise 4s infinite;
-    }
-
-    .result-container {
-      position: absolute;
-      bottom: 70px;
-      left: 50%;
-      transform: translate(-50%, 50px);
-      opacity: 0;
-      text-align: center;
-      z-index: 20;
-    }
-
-    /* Keyframes para la animación */
-    @keyframes fall-in-flask {
-      0% {
-        opacity: 1;
-        transform: translate(-50%, -50px);
-      }
-
-      70% {
-        opacity: 1;
-        transform: translate(-50%, 120px) scale(0.8);
-      }
-
-      100% {
-        opacity: 0;
-        transform: translate(-50%, 120px) scale(0);
-      }
-    }
-
-    @keyframes rise {
-      0% {
-        bottom: -10px;
-        opacity: 1;
-      }
-
-      100% {
-        bottom: 110px;
-        opacity: 0;
-      }
-    }
-
-    @keyframes launch-result {
-      0% {
-        transform: translate(-50%, 50px);
-        opacity: 0;
-      }
-
-      40%,
-      60% {
-        transform: translate(-50%, -40px);
-        opacity: 1;
-      }
-
-      100% {
-        transform: translate(-50%, -200px);
-        opacity: 0;
-      }
-    }
+    /* --- FIN: ESTILOS DE ANIMACIÓN DE CRECIMIENTO DE NEGOCIO --- */
 
     /* --- Animación de Pulso para Imagen --- */
     @keyframes pulse-custom {
-
-      0%,
-      100% {
-        transform: scale(1);
-        box-shadow: 0 0 0 0 rgba(203, 0, 0, 0.4);
+      0%, 100% {
+        transform: scale(1); box-shadow: 0 0 0 0 rgba(203, 0, 0, 0.4);
       }
-
       50% {
-        transform: scale(1.05);
-        box-shadow: 0 0 0 25px rgba(203, 0, 0, 0);
+        transform: scale(1.05); box-shadow: 0 0 0 25px rgba(203, 0, 0, 0);
       }
     }
+    .animate-pulse-custom { animation: pulse-custom 2.5s infinite; }
 
-    .animate-pulse-custom {
-      animation: pulse-custom 2.5s infinite;
+    /* --- Se elimina la clase .animate-on-scroll; GSAP la reemplaza --- */
+    .gsap-fade-up {
+        opacity: 0;
+        transform: translateY(40px);
     }
+
+    /* NUEVO: Fondo con textura sutil para secciones */
+    .section-textured-bg {
+        background-color: var(--light-gray);
+        background-image:  radial-gradient(#e9ecef 1px, transparent 1px);
+        background-size: 20px 20px;
+    }
+    
+    /* NUEVO: Divisor de sección en ángulo */
+    .angled-divider {
+        position: relative;
+        height: 100px;
+        background-color: white; /* Color de la sección de abajo */
+    }
+    .angled-divider::before {
+        content: '';
+        position: absolute;
+        top: -50px;
+        left: 0;
+        width: 100%;
+        height: 50px;
+        background-color: var(--light-gray); /* Color de la sección de arriba */
+        clip-path: polygon(0 100%, 100% 0, 100% 100%);
+    }
+
   </style>
 </head>
 
-<body class="bg-gray-100">
+<body class="bg-white">
   <header class="header fixed top-0 left-0 w-full z-50">
-    <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+    <div class="container mx-auto px-4 py-3 flex items-center justify-between transition-all duration-300">
       <a href="#" class="flex items-center">
-        <img src="assets\LOGOOKLATINO.png" alt="OK Latino Logo" class="h-10"
+        <!-- RUTA CORREGIDA -->
+        <img src="assets/LOGOOKLATINO.png" alt="OK Latino Logo" class="h-10 transition-all duration-300"
           onerror="this.onerror=null;this.src='https://placehold.co/150x40/ffffff/cb0000?text=OK+Latino';">
       </a>
-      <nav class="nav-menu hidden md:flex items-center space-x-8">
+      <nav class="hidden md:flex items-center space-x-8">
         <a href="#services" class="text-gray-700 hover:text-brand-red font-medium transition-colors">Servicios</a>
         <a href="#process" class="text-gray-700 hover:text-brand-red font-medium transition-colors">Proceso</a>
         <a href="#testimonials" class="text-gray-700 hover:text-brand-red font-medium transition-colors">Testimonios</a>
@@ -377,96 +271,90 @@
         class="btn-primary hidden md:inline-block px-6 py-2 text-white font-medium rounded-full shadow-lg">Agendar
         Consulta</a>
     </div>
-    <div id="mobile-menu" class="nav-menu md:hidden">
-      <a href="#services" class="block py-2 px-4 text-gray-700 hover:text-brand-red font-medium">Servicios</a>
-      <a href="#process" class="block py-2 px-4 text-gray-700 hover:text-brand-red font-medium">Proceso</a>
-      <a href="#testimonials" class="block py-2 px-4 text-gray-700 hover:text-brand-red font-medium">Testimonios</a>
-      <a href="#about" class="block py-2 px-4 text-gray-700 hover:text-brand-red font-medium">Nosotros</a>
-      <a href="#contact" class="block py-2 px-4 text-gray-700 hover:text-brand-red font-medium">Contacto</a>
-      <a href="#booking"
-        class="btn-primary block mx-4 my-2 px-6 py-2 text-white font-medium rounded-full text-center">Agendar
-        Consulta</a>
-    </div>
   </header>
 
   <main class="pt-16">
     <section class="hero relative flex items-center justify-center min-h-screen overflow-hidden">
-      <!-- Video de fondo -->
       <video autoplay loop muted playsinline class="absolute top-0 left-0 w-full h-full object-cover z-0">
-        <!-- CAMBIO: Coloca la ruta a tu video aquí -->
-        <source src="assets\WEBOKLATINO.mp4" type="video/mp4">
+        <!-- RUTA CORREGIDA -->
+        <source src="assets/WEBOKLATINO.mp4" type="video/mp4">
         Tu navegador no soporta videos.
       </video>
-      <!-- Capa de superposición oscura -->
-      <div class="absolute top-0 left-0 w-full h-full bg-black opacity-60 z-10"></div>
-      <!-- Contenido de texto -->
+      <div class="absolute top-0 left-0 w-full h-full hero-overlay z-10"></div>
       <div class="relative container mx-auto px-4 py-16 text-center z-20">
-        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6 text-outline">
-          <img src="assets\OKLTWEB.png" alt="OK Latino Logo" class="h-16 mx-auto mb-4"
-            onerror="this.onerror=null;this.src='https://placehold.co/200x64/ffffff/cb0000?text=OK+Latino';">
-          Campañas de marketing digital con resultados reales y escalables.
-        </h1>
-        <p class="text-xl text-white mb-8 max-w-2xl mx-auto text-outline">Especializados en Meta Business y creación de
-          landing page exitosas.</p>
-        <a href="#services"
-          class="btn-secondary inline-block px-8 py-3 text-white font-medium rounded-full shadow-lg text-lg">Ver
-          Nuestros Planes</a>
+        <div id="hero-content"> <!-- Contenedor para animación GSAP -->
+            <!-- RUTA CORREGIDA -->
+            <img src="assets/OKLTWEB.png" alt="OK Latino Logo" class="h-16 mx-auto mb-4"
+                 onerror="this.onerror=null;this.src='https://placehold.co/200x64/ffffff/cb0000?text=OK+Latino';">
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6 text-outline">
+                Campañas de marketing digital con resultados reales y escalables.
+            </h1>
+            <p class="text-xl text-white mb-8 max-w-2xl mx-auto text-outline">Especializados en Meta Business y creación de landing page exitosas.</p>
+            <a href="#services"
+               class="btn-secondary inline-block px-8 py-3 text-white font-medium rounded-full shadow-lg text-lg">Ver Nuestros Planes</a>
+        </div>
       </div>
     </section>
 
-    <div class="video-container">
-      <video src="assets\OK LATINO. FACEBOOK BUSINESS PARTNER.mp4" autoplay loop muted controls playsinline>
+    <div class="video-container gsap-fade-up">
+      <!-- RUTA CORREGIDA -->
+      <video src="assets/OK LATINO. FACEBOOK BUSINESS PARTNER.mp4" autoplay loop muted controls playsinline>
         Lo sentimos, tu navegador no soporta la etiqueta de video.
       </video>
     </div>
-    <section id="process" class="py-16 bg-white">
-      <h3 class="text-2xl font-bold text-center mb-8 mt-16">Conoce a Nuestro Equipo</h3>
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-4xl mx-auto">
-        <div class="team-member text-center">
-          <div class="mb-3 mx-auto w-32 h-32 rounded-full overflow-hidden border-4 border-transparent">
-            <img src="assets\WS1.png" alt="Saúl Rangel"
-              class="team-member-img w-full h-full object-cover rounded-full transition-all duration-300">
+    
+    <section id="team-section" class="py-20 bg-white">
+      <div class="container mx-auto px-4">
+        <h3 class="text-3xl font-bold text-center mb-12 gsap-fade-up">Conoce a Nuestro Equipo</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-4xl mx-auto">
+          <div class="team-member text-center gsap-fade-up">
+            <div class="mb-4 mx-auto w-32 h-32 rounded-full overflow-hidden border-4 border-transparent transition-all duration-300">
+              <!-- RUTA CORREGIDA -->
+              <img src="assets/WS1.png" alt="Saúl Rangel"
+                class="team-member-img w-full h-full object-cover rounded-full transition-all duration-300">
+            </div>
+            <h4 class="font-semibold text-lg">Saúl Rangel</h4>
+            <p class="text-gray-500 text-sm">Experto en marketing digital.<br>
+              Marketing político.<br>
+              Socio fundador OK Latino</p>
           </div>
-          <h4 class="font-semibold">Saúl Rangel</h4>
-          <p class="text-gray-500 text-sm">Experto en marketing digital.<br>
-            Marketing político.<br>
-            Socio fundador OK Latino</p>
-        </div>
-        <div class="team-member text-center">
-          <div class="mb-3 mx-auto w-32 h-32 rounded-full overflow-hidden border-4 border-transparent">
-            <img src="assets\WP1.png" alt="Pablo Jiménez"
-              class="team-member-img w-full h-full object-cover rounded-full transition-all duration-300">
+          <div class="team-member text-center gsap-fade-up" style="--stagger-delay: 0.15s;">
+            <div class="mb-4 mx-auto w-32 h-32 rounded-full overflow-hidden border-4 border-transparent transition-all duration-300">
+              <!-- RUTA CORREGIDA -->
+              <img src="assets/WP1.png" alt="Pablo Jiménez"
+                class="team-member-img w-full h-full object-cover rounded-full transition-all duration-300">
+            </div>
+            <h4 class="font-semibold text-lg">Pablo Jiménez</h4>
+            <p class="text-gray-500 text-sm">Experto en marketing digital.<br>
+              Productor audiovisual en marketing.<br>
+              Socio fundador OK Latino</p>
           </div>
-          <h4 class="font-semibold">Pablo Jiménez</h4>
-          <p class="text-gray-500 text-sm">Experto en marketing digital.<br>
-            Productor audiovisual en marketing.<br>
-            Socio fundador OK Latino</p>
-        </div>
-        <div class="team-member text-center">
-          <div class="mb-3 mx-auto w-32 h-32 rounded-full overflow-hidden border-4 border-transparent">
-            <img src="assets\WR1.png" alt="Reyna Marín"
-              class="team-member-img w-full h-full object-cover rounded-full transition-all duration-300">
+          <div class="team-member text-center gsap-fade-up" style="--stagger-delay: 0.3s;">
+            <div class="mb-4 mx-auto w-32 h-32 rounded-full overflow-hidden border-4 border-transparent transition-all duration-300">
+              <!-- RUTA CORREGIDA -->
+              <img src="assets/WR1.png" alt="Reyna Marín"
+                class="team-member-img w-full h-full object-cover rounded-full transition-all duration-300">
+            </div>
+            <h4 class="font-semibold text-lg">Reyna Marín</h4>
+            <p class="text-gray-500 text-sm">Experta en marketing digital.<br>
+              Directora general OK Latino.</p>
           </div>
-          <h4 class="font-semibold">Reyna Marín</h4>
-          <p class="text-gray-500 text-sm">Experta en marketing digital.<br>
-            Directora general OK Latino.</p>
         </div>
-      </div>
       </div>
     </section>
 
-    <section id="testimonials" class="py-16 bg-white">
+    <section id="testimonials" class="py-20 section-textured-bg">
       <div class="container mx-auto px-4">
-        <div class="text-center mb-12">
+        <div class="text-center mb-12 gsap-fade-up">
           <h2 class="text-3xl font-bold mb-4">Lo que Dicen Nuestros Clientes</h2>
           <p class="text-gray-600 max-w-2xl mx-auto">Escucha a las empresas que han logrado un crecimiento notable con
             nuestras estrategias.</p>
         </div>
-        <div class="max-w-4xl mx-auto relative">
+        <div class="max-w-4xl mx-auto relative gsap-fade-up">
           <div id="testimonial-carousel" class="overflow-hidden">
             <div class="flex transition-transform duration-500" id="testimonial-slider">
               <div class="testimonial-card w-full flex-shrink-0 px-4">
-                <div class="bg-gray-50 rounded-lg shadow-md p-6 md:p-8">
+                <div class="bg-white rounded-lg p-6 md:p-8 shadow-lg">
                   <div class="flex text-yellow-400 mb-4"><i class="fas fa-star"></i><i class="fas fa-star"></i><i
                       class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
                   <p class="text-lg mb-6 text-gray-700">"OK LATINO transformó por completo nuestra presencia online. Su
@@ -483,7 +371,7 @@
                 </div>
               </div>
               <div class="testimonial-card w-full flex-shrink-0 px-4">
-                <div class="bg-gray-50 rounded-lg shadow-md p-6 md:p-8">
+                <div class="bg-white rounded-lg p-6 md:p-8 shadow-lg">
                   <div class="flex text-yellow-400 mb-4"><i class="fas fa-star"></i><i class="fas fa-star"></i><i
                       class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
                   <p class="text-lg mb-6 text-gray-700">"Trabajar con OK LATINO ha cambiado las reglas del juego. Su
@@ -500,7 +388,7 @@
                 </div>
               </div>
               <div class="testimonial-card w-full flex-shrink-0 px-4">
-                <div class="bg-gray-50 rounded-lg shadow-md p-6 md:p-8">
+                <div class="bg-white rounded-lg p-6 md:p-8 shadow-lg">
                   <div class="flex text-yellow-400 mb-4"><i class="fas fa-star"></i><i class="fas fa-star"></i><i
                       class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
                   <p class="text-lg mb-6 text-gray-700">"Era escéptico, pero OK LATINO me demostró lo contrario. Su
@@ -533,62 +421,66 @@
       </div>
     </section>
 
-    <!-- SECCIÓN DE PROCESO CON ANIMACIÓN DE FÓRMULA MEJORADA -->
-    <section id="process" class="py-16 bg-white">
-      <div class="container mx-auto px-4">
-        <div class="text-center mb-12">
-          <h2 class="text-3xl font-bold mb-4">Nuestra Fórmula para el Éxito</h2>
-          <p class="text-gray-600 max-w-2xl mx-auto">Así es como combinamos nuestros pilares para generar resultados
-            reales.</p>
-        </div>
-        <div id="formula-container">
-          <!-- Ingredientes -->
-          <div id="ingredient-1" class="ingredient-icon">
-            <i class="fas fa-chart-line text-4xl text-brand-red mb-2"></i>
-            <p class="font-semibold">Análisis</p>
-          </div>
-          <div id="ingredient-2" class="ingredient-icon">
-            <i class="fas fa-lightbulb text-4xl text-brand-red mb-2"></i>
-            <p class="font-semibold">Creatividad</p>
-          </div>
-          <div id="ingredient-3" class="ingredient-icon">
-            <i class="fas fa-share-alt text-4xl text-brand-red mb-2"></i>
-            <p class="font-semibold">Estrategia Social</p>
-          </div>
-          <div id="ingredient-4" class="ingredient-icon">
-            <i class="fas fa-search-dollar text-4xl text-brand-red mb-2"></i>
-            <p class="font-semibold">Optimización SEO</p>
-          </div>
-          <!-- Matraz y Resultado -->
-          <div class="flask-container">
-            <div class="flask-liquid-wrapper">
-              <div id="flask-liquid" class="flask-liquid">
-                <div id="bubbles" class="bubbles"></div>
-              </div>
+    <section id="process" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12 gsap-fade-up">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Nuestra Fórmula para el Éxito</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Así es como combinamos nuestros pilares para hacer crecer tu negocio.</p>
             </div>
-            <!-- CAMBIO: Se reemplazó el ícono por una imagen -->
-            <img id="flask-icon" src="assets\MATRAZ-02.png" alt="Matraz de laboratorio"
-              class="w-full h-full object-contain">
-          </div>
-          <div id="result-container" class="result-container">
-            <i class="fas fa-rocket text-5xl text-brand-red mb-3"></i>
-            <p class="text-2xl font-bold">Resultados</p>
-            <p class="text-gray-600">¡Tu negocio despega!</p>
-          </div>
+            
+            <div id="process-animation-container" class="bg-white rounded-lg shadow-xl p-4">
+                <!-- Ingredientes -->
+                <div class="process-ingredient">
+                    <i class="fas fa-chart-line text-4xl mb-2"></i>
+                    <p class="font-semibold">Análisis</p>
+                </div>
+                <div class="process-ingredient">
+                    <i class="fas fa-lightbulb text-4xl mb-2"></i>
+                    <p class="font-semibold">Creatividad</p>
+                </div>
+                <div class="process-ingredient">
+                    <i class="fas fa-share-alt text-4xl mb-2"></i>
+                    <p class="font-semibold">Estrategia Social</p>
+                </div>
+                <div class="process-ingredient">
+                    <i class="fas fa-search-dollar text-4xl mb-2"></i>
+                    <p class="font-semibold">Optimización SEO</p>
+                </div>
+                
+                <!-- Etapas del Negocio -->
+                <div class="business-stage active">
+                    <i class="fas fa-store"></i>
+                </div>
+                <div class="business-stage">
+                    <i class="fas fa-building"></i>
+                </div>
+                <div class="business-stage">
+                    <i class="fas fa-city"></i>
+                </div>
+                <div class="business-stage">
+                    <i class="fas fa-industry"></i>
+                </div>
+                
+                <!-- Resultado Final -->
+                <div class="result-display">
+                    <i class="fas fa-rocket text-5xl text-red-600 mb-3"></i>
+                    <p class="text-2xl font-bold">Resultados</p>
+                    <p class="text-gray-600">¡Tu negocio despega!</p>
+                </div>
+            </div>
         </div>
-      </div>
     </section>
 
-    <section id="services" class="py-16 bg-gray-50">
+    <section id="services" class="py-20 section-textured-bg">
       <div class="container mx-auto px-4">
-        <div class="text-center mb-12">
+        <div class="text-center mb-12 gsap-fade-up">
           <h2 class="text-3xl font-bold mb-4">Soluciones a tu Medida</h2>
           <p class="text-gray-600 max-w-2xl mx-auto">Elige el servicio que tu negocio necesita. Todos nuestros paquetes
             son de pago único.</p>
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           <!-- Paquete 1 -->
-          <div class="service-card bg-white rounded-lg shadow-lg overflow-hidden flex flex-col">
+          <div class="service-card bg-white rounded-lg overflow-hidden flex flex-col">
             <div class="p-6 flex-grow">
               <h3 class="text-2xl font-bold mb-2">Gestión de Anuncios</h3>
               <p class="text-gray-500 mb-4">Campañas en Meta (Facebook, Instagram) por expertos certificados.</p>
@@ -611,7 +503,7 @@
             </div>
           </div>
           <!-- Paquete 2 -->
-          <div class="service-card bg-white rounded-lg shadow-lg overflow-hidden flex flex-col">
+          <div class="service-card bg-white rounded-lg overflow-hidden flex flex-col">
             <div class="p-6 flex-grow">
               <h3 class="text-2xl font-bold mb-2">Marketing Digital</h3>
               <p class="text-gray-500 mb-4">Aumenta tu visibilidad orgánica con contenido y estrategias SEO.</p>
@@ -634,7 +526,7 @@
             </div>
           </div>
           <!-- Paquete 3 -->
-          <div class="service-card bg-white rounded-lg shadow-lg overflow-hidden flex flex-col">
+          <div class="service-card bg-white rounded-lg overflow-hidden flex flex-col">
             <div class="p-6 flex-grow">
               <h3 class="text-2xl font-bold mb-2">Desarrollo de Landing Page</h3>
               <p class="text-gray-500 mb-4">Una página de aterrizaje profesional y optimizada para convertir.</p>
@@ -685,12 +577,13 @@
       </div>
     </section>
 
-    <section id="meta-partner" class="py-16 bg-white">
+    <section id="meta-partner" class="py-20 bg-white">
       <div class="container mx-auto px-4">
         <div
-          class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 items-center bg-gray-50 p-8 rounded-lg shadow-md">
+          class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 items-center bg-gray-50 p-8 rounded-lg shadow-lg gsap-fade-up">
           <div class="md:col-span-1 flex justify-center">
-            <img src="assets\meta-partners.jpg" alt="Logo de Meta Business Partner" class="h-24 w-auto"
+            <!-- RUTA CORREGIDA -->
+            <img src="assets/meta-partners.jpg" alt="Logo de Meta Business Partner" class="h-24 w-auto"
               onerror="this.onerror=null;this.src='https://placehold.co/200x96/ffffff/1877f2?text=Meta+Partner';">
           </div>
           <div class="md:col-span-2 text-center md:text-left">
@@ -703,23 +596,24 @@
       </div>
     </section>
 
-    <section id="brand-showcase" class="py-16 bg-white">
+    <section id="brand-showcase" class="py-20 section-textured-bg">
       <div class="container mx-auto px-4 text-center">
-        <img src="assets\OKLATINO.png" alt="Logo OK Latino"
+        <!-- RUTA CORREGIDA -->
+        <img src="assets/OKLATINO.png" alt="Logo OK Latino"
           class="mx-auto h-56 w-56 rounded-full shadow-2xl border-4 border-white animate-pulse-custom"
           onerror="this.onerror=null;this.src='https://placehold.co/224x224/cb0000/ffffff?text=OK';">
         <h2 class="mt-8 text-5xl font-bold text-gray-800" style="font-family: 'Poppins', sans-serif;">OK LATINO</h2>
       </div>
     </section>
 
-    <section id="booking" class="py-16 bg-gray-50">
+    <section id="booking" class="py-20 bg-white">
       <div class="container mx-auto px-4">
-        <div class="text-center mb-12">
+        <div class="text-center mb-12 gsap-fade-up">
           <h2 class="text-3xl font-bold mb-4">Solicita una Consulta Gratuita</h2>
           <p class="text-gray-600 max-w-2xl mx-auto">Déjanos tus datos y uno de nuestros especialistas se pondrá en
             contacto contigo a la brevedad para ofrecerte un plan de acción sin compromiso.</p>
         </div>
-        <div class="max-w-lg mx-auto bg-white rounded-xl shadow-lg p-8">
+        <div class="max-w-lg mx-auto bg-white rounded-xl shadow-2xl p-8 gsap-fade-up">
           <h3 class="text-2xl font-bold text-center mb-6">Ingresa tus Datos</h3>
           <form action="https://formspree.io/f/mblyervq" method="POST" enctype="multipart/form-data">
             <div class="mb-4">
@@ -728,7 +622,6 @@
                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-brand-red"
                 required>
             </div>
-            <!-- NUEVOS CAMPOS -->
             <div class="mb-4">
               <label for="booking_country" class="block text-gray-700 mb-2 font-medium">País</label>
               <input type="text" id="booking_country" name="pais" placeholder="Tu País"
@@ -741,7 +634,6 @@
                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-brand-red"
                 required>
             </div>
-            <!-- FIN NUEVOS CAMPOS -->
             <div class="mb-4">
               <label for="booking_email" class="block text-gray-700 mb-2 font-medium">Correo Electrónico</label>
               <input type="email" id="booking_email" name="email" placeholder="tu@correo.com"
@@ -761,15 +653,16 @@
       </div>
     </section>
 
-    <section id="about" class="py-16 bg-gray-50">
+    <section id="about" class="py-20 section-textured-bg">
       <div class="container mx-auto px-4">
-        <div class="text-center mb-12">
+        <div class="text-center mb-12 gsap-fade-up">
           <h2 class="text-3xl font-bold mb-4">Acerca de OK LATINO</h2>
           <p class="text-gray-600 max-w-2xl mx-auto">Somos un equipo de expertos apasionados en marketing digital
             dedicados a ayudar a las empresas a alcanzar su máximo potencial online.</p>
         </div>
-        <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-          <div><img src="assets\ACERCADE.jpg" alt="OK Latino Brand" class="rounded-lg shadow-md mb-6 md:mb-0"
+        <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center gsap-fade-up">
+          <!-- RUTA CORREGIDA -->
+          <div><img src="assets/ACERCADE.jpg" alt="OK Latino Brand" class="rounded-lg shadow-xl mb-6 md:mb-0"
               onerror="this.onerror=null;this.src='https://placehold.co/600x400/cb0000/ffffff?text=OK+Latino';"></div>
           <div class="text-gray-700">
             <p class="mb-4">En OK LATINO, creemos que el marketing digital efectivo es tanto un arte como una ciencia.
@@ -780,23 +673,23 @@
               campañas de marketing digital dirigidas.</p>
           </div>
         </div>
+      </div>
     </section>
 
-    <section id="contact" class="py-16 bg-white">
+    <section id="contact" class="py-20 bg-white">
       <div class="container mx-auto px-4">
-        <div class="text-center mb-12">
+        <div class="text-center mb-12 gsap-fade-up">
           <h2 class="text-3xl font-bold mb-4">Ponte en Contacto</h2>
           <p class="text-gray-600 max-w-2xl mx-auto">¿Tienes preguntas o estás listo para iniciar tu viaje de marketing
             digital? Contáctanos hoy.</p>
         </div>
-        <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 gsap-fade-up">
           <div>
             <form action="https://formspree.io/f/mzzgqpnz" method="POST" enctype="multipart/form-data">
               <div class="mb-4"><label for="name" class="block text-gray-700 mb-2">Nombre</label><input type="text"
                   name="nombre" id="name"
                   class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-brand-red"
                   required></div>
-              <!-- NUEVOS CAMPOS -->
               <div class="mb-4">
                 <label for="contact_country" class="block text-gray-700 mb-2">País</label>
                 <input type="text" id="contact_country" name="pais"
@@ -809,7 +702,6 @@
                   class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-brand-red"
                   required>
               </div>
-              <!-- FIN NUEVOS CAMPOS -->
               <div class="mb-4"><label for="email" class="block text-gray-700 mb-2">Correo Electrónico</label><input
                   type="email" id="email" name="email"
                   class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-brand-red"
@@ -825,7 +717,7 @@
               <button type="submit" class="btn-primary py-2 px-6 font-medium rounded-lg">Enviar Mensaje</button>
             </form>
           </div>
-          <div class="bg-gray-50 rounded-lg p-6">
+          <div class="bg-gray-50 rounded-lg p-6 shadow-lg">
             <h3 class="text-xl font-semibold mb-4">Información de Contacto</h3>
             <div class="mb-6 space-y-4">
               <div class="flex items-start">
@@ -971,119 +863,138 @@
     </a>
   </div>
 
+  <!-- ============================================== -->
+  <!-- ==== INICIO DE LAS BIBLIOTECAS DE ANIMACIÓN ==== -->
+  <!-- ============================================== -->
+
+  <!-- 1. Biblioteca GSAP (Motor de Animación) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+  <!-- 2. Plugin ScrollTrigger de GSAP (Para animar al hacer scroll) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <!-- 3. Biblioteca Lenis (Para el scroll suave) -->
+  <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+
+  <!-- ============================================== -->
+  <!-- ==== FIN DE LAS BIBLIOTECAS DE ANIMACIÓN ==== -->
+  <!-- ============================================== -->
+
   <script id="app-script">
     document.addEventListener('DOMContentLoaded', function () {
       // --- Menú Móvil ---
       const mobileMenuButton = document.getElementById('mobile-menu-button');
       const mobileMenu = document.getElementById('mobile-menu');
       if (mobileMenuButton && mobileMenu) {
-        mobileMenuButton.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+        mobileMenuButton.addEventListener('click', () => {
+          mobileMenu.classList.toggle('open');
+        });
       }
 
-      // --- Desplazamiento Suave ---
-      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-          e.preventDefault();
-          const targetId = this.getAttribute('href');
-          if (targetId.length > 1) {
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-              let offset = 70; // Altura del header
-              window.scrollTo({ top: targetElement.offsetTop - offset, behavior: 'smooth' });
-              if (mobileMenu.classList.contains('open')) { mobileMenu.classList.remove('open'); }
-            }
+      // --- Header dinámico al hacer scroll (sin cambios) ---
+      const header = document.querySelector('.header');
+      window.addEventListener('scroll', () => {
+          if (window.scrollY > 50) {
+              header.classList.add('scrolled');
+          } else {
+              header.classList.remove('scrolled');
           }
-        });
       });
 
-      // --- Lógica de la Animación de Fórmula en Bucle ---
-      const formulaContainer = document.getElementById('formula-container');
-      if (formulaContainer) {
-        const ingredients = document.querySelectorAll('.ingredient-icon');
-        const liquid = document.getElementById('flask-liquid');
-        const result = document.getElementById('result-container');
-        const bubblesContainer = document.getElementById('bubbles');
-        let animationInterval = null;
-
-        const runAnimation = () => {
-          // Reset styles
-          liquid.style.transition = 'none';
-          liquid.style.height = '0%';
-          bubblesContainer.style.opacity = '0';
-          bubblesContainer.innerHTML = '';
-          result.style.animation = 'none';
-
+      // --- LÓGICA DE ANIMACIÓN DE CRECIMIENTO DE NEGOCIO (sin cambios) ---
+      const animationContainer = document.getElementById('process-animation-container');
+      if (animationContainer) {
+        const ingredients = animationContainer.querySelectorAll('.process-ingredient');
+        const stages = animationContainer.querySelectorAll('.business-stage');
+        const resultDisplay = animationContainer.querySelector('.result-display');
+        let currentStageIndex = 0;
+        let isAnimating = false;
+        let animationTimeout;
+        function resetAnimationState() {
+          resultDisplay.style.transition = 'none';
+          resultDisplay.style.opacity = '0';
+          resultDisplay.style.transform = 'translate(-50%, 50px)';
           ingredients.forEach(ing => {
+            ing.style.transition = 'none';
             ing.style.opacity = '0';
-            ing.style.transform = `translate(-50%, -50px)`;
-            ing.style.animation = 'none';
+            ing.style.transform = 'translate(-50%, -80px)';
           });
-
-          // Force reflow
-          void formulaContainer.offsetWidth;
-
-          // Add animation classes
-          result.style.animation = 'launch-result 2s ease-in-out 6.5s forwards';
-
-          ingredients.forEach((ing, i) => {
-            ing.style.animation = `fall-in-flask 1.5s cubic-bezier(0.6, -0.28, 0.735, 0.045) ${1 + i * 1.2}s forwards`;
-
+          stages.forEach(stage => stage.classList.remove('active'));
+          stages[0].classList.add('active');
+          currentStageIndex = 0;
+          void animationContainer.offsetWidth;
+          ingredients.forEach(ing => {
+            ing.style.transition = 'opacity 0.5s ease-out, transform 1.5s ease-in-out';
+          });
+        }
+        function runAnimationStep(index) {
+          if (!isAnimating) return;
+          if (index >= ingredients.length) {
             setTimeout(() => {
-              liquid.style.transition = 'height 0.5s ease-out';
-              liquid.style.height = `${(i + 1) * 25}%`;
-            }, 2000 + i * 1200);
-          });
-
+              if (!isAnimating) return;
+              if (stages[currentStageIndex]) {
+                stages[currentStageIndex].classList.remove('active');
+              }
+              resultDisplay.style.transition = 'opacity 0.5s ease-in-out, transform 0.5s ease-in-out';
+              resultDisplay.style.opacity = '1';
+              resultDisplay.style.transform = 'translate(-50%, 0)';
+              setTimeout(() => {
+                if (!isAnimating) return;
+                resultDisplay.style.transition = 'opacity 1.5s ease-in, transform 1.5s ease-in';
+                resultDisplay.style.opacity = '0';
+                resultDisplay.style.transform = 'translate(-50%, -300px)';
+                animationTimeout = setTimeout(startAnimationCycle, 1500);
+              }, 2000);
+            }, 1000);
+            return;
+          }
+          const ingredient = ingredients[index];
           setTimeout(() => {
-            bubblesContainer.style.opacity = '1';
-            for (let i = 0; i < 15; i++) {
-              const bubble = document.createElement('div');
-              bubble.className = 'bubble';
-              const size = Math.random() * 10 + 5;
-              bubble.style.width = `${size}px`;
-              bubble.style.height = `${size}px`;
-              bubble.style.left = `${Math.random() * 90}%`;
-              bubble.style.animationDuration = `${Math.random() * 2 + 2}s`;
-              bubble.style.animationDelay = `${Math.random() * 0.5}s`;
-              bubblesContainer.appendChild(bubble);
-              setTimeout(() => bubble.remove(), 4000);
+            if (!isAnimating) return;
+            ingredient.style.opacity = '1';
+            ingredient.style.transform = 'translate(-50%, 150px)';
+          }, 100);
+          setTimeout(() => {
+            if (!isAnimating) return;
+            ingredient.style.opacity = '0';
+            if (stages[currentStageIndex]) {
+              stages[currentStageIndex].classList.remove('active');
             }
-          }, 5800);
-
-          // Vaciar el matraz suavemente para el siguiente ciclo
-          setTimeout(() => {
-            liquid.style.transition = 'height 1s ease-in';
-            liquid.style.height = '0%';
-          }, 8500);
-        };
-
+            currentStageIndex++;
+            if (stages[currentStageIndex]) {
+              stages[currentStageIndex].classList.add('active');
+            }
+            runAnimationStep(index + 1);
+          }, 2200);
+        }
+        function startAnimationCycle() {
+          if (!isAnimating) return;
+          resetAnimationState();
+          runAnimationStep(0);
+        }
         const observer = new IntersectionObserver((entries) => {
           entries.forEach(entry => {
             if (entry.isIntersecting) {
-              if (!animationInterval) {
-                runAnimation();
-                animationInterval = setInterval(runAnimation, 9500);
+              if (!isAnimating) {
+                isAnimating = true;
+                startAnimationCycle();
               }
             } else {
-              if (animationInterval) {
-                clearInterval(animationInterval);
-                animationInterval = null;
-              }
+              isAnimating = false;
+              clearTimeout(animationTimeout);
             }
           });
         }, { threshold: 0.5 });
-
-        observer.observe(formulaContainer);
+        observer.observe(animationContainer);
       }
 
-      // --- Carrusel de Testimonios ---
+      // --- Carrusel de Testimonios (sin cambios) ---
       const slider = document.getElementById('testimonial-slider');
       const dots = document.querySelectorAll('.testimonial-controls button');
       const prevBtn = document.getElementById('prev-testimonial');
       const nextBtn = document.getElementById('next-testimonial');
       let currentSlide = 0;
       const totalSlides = slider ? slider.children.length : 0;
-
       function updateCarousel() {
         if (!slider || totalSlides === 0) return;
         slider.style.transform = `translateX(-${currentSlide * 100}%)`;
@@ -1091,7 +1002,6 @@
           dot.classList.toggle('active', index === currentSlide);
         });
       }
-
       if (nextBtn && prevBtn) {
         nextBtn.addEventListener('click', () => {
           currentSlide = (currentSlide + 1) % totalSlides;
@@ -1111,32 +1021,27 @@
         updateCarousel();
       }
 
-      // --- Lógica del Modal de Pago ---
+      // --- Lógica del Modal de Pago (sin cambios) ---
       const paymentModal = document.getElementById('payment-modal');
       const closeModalBtn = document.getElementById('close-modal');
       const serviceButtons = document.querySelectorAll('.service-button');
       const modalPackageName = document.getElementById('modal-package-name');
       const modalPackagePrice = document.getElementById('modal-package-price');
-
       serviceButtons.forEach(button => {
         button.addEventListener('click', (e) => {
           e.preventDefault();
           const packageName = button.dataset.package;
           const packagePrice = button.dataset.price;
-
           modalPackageName.textContent = packageName;
           modalPackagePrice.textContent = packagePrice;
-
           paymentModal.classList.remove('hidden');
         });
       });
-
       if (closeModalBtn) {
         closeModalBtn.addEventListener('click', () => {
           paymentModal.classList.add('hidden');
         });
       }
-
       if (paymentModal) {
         paymentModal.addEventListener('click', (e) => {
           if (e.target === paymentModal) {
@@ -1144,6 +1049,106 @@
           }
         });
       }
+      
+      // --- Efecto de toque para tarjetas en móvil (sin cambios) ---
+      document.querySelectorAll('.service-card').forEach(card => {
+        card.addEventListener('touchstart', () => {
+          card.classList.add('tapped');
+        }, { passive: true });
+        card.addEventListener('touchend', () => {
+          setTimeout(() => {
+            card.classList.remove('tapped');
+          }, 150);
+        });
+      });
+
+    });
+  </script>
+
+  <!-- ========================================================== -->
+  <!-- ==== INICIO: INICIALIZACIÓN DE GSAP Y LENIS ==== -->
+  <!-- ========================================================== -->
+  <script id="new-tech-init">
+    document.addEventListener('DOMContentLoaded', function () {
+        
+        // --- 1. INICIALIZACIÓN DE LENIS (SCROLL SUAVE) ---
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        });
+
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+
+        requestAnimationFrame(raf);
+
+        // --- Integración de Lenis con los enlaces de ancla ---
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId.length > 1 && targetId !== '#') {
+                    const headerOffset = document.querySelector('.header').offsetHeight;
+                    lenis.scrollTo(targetId, { offset: -headerOffset });
+                }
+                // Cierra el menú móvil si está abierto
+                const mobileMenu = document.getElementById('mobile-menu');
+                if(mobileMenu && mobileMenu.classList.contains('open')) {
+                    mobileMenu.classList.remove('open');
+                }
+            });
+        });
+
+        
+        // --- 2. INICIALIZACIÓN DE GSAP (ANIMACIONES) ---
+        gsap.registerPlugin(ScrollTrigger);
+
+        // --- Animación de entrada para el Hero ---
+        const heroContent = document.querySelector("#hero-content");
+        if (heroContent) {
+            gsap.from(heroContent.children, {
+                opacity: 0,
+                y: 30,
+                duration: 1,
+                stagger: 0.2,
+                ease: "power3.out",
+                delay: 0.5
+            });
+        }
+        
+        // --- Animación genérica de aparición para secciones ---
+        const fadeUpElements = document.querySelectorAll(".gsap-fade-up");
+        fadeUpElements.forEach(el => {
+            gsap.to(el, {
+                scrollTrigger: {
+                    trigger: el,
+                    start: "top 85%",
+                    toggleActions: "play none none none"
+                },
+                opacity: 1,
+                y: 0,
+                duration: 1,
+                ease: "power3.out",
+                delay: el.style.getPropertyValue("--stagger-delay") || 0
+            });
+        });
+
+        // --- Animación escalonada para las tarjetas de servicios ---
+        gsap.to(".service-card", {
+            scrollTrigger: {
+                trigger: "#services",
+                start: "top 70%",
+                toggleActions: "play none none none"
+            },
+            opacity: 1,
+            y: 0,
+            stagger: 0.15,
+            duration: 0.8,
+            ease: "power2.out"
+        });
+
     });
   </script>
 </body>
