@@ -58,15 +58,23 @@
     }
 
     .btn-secondary {
-      background: linear-gradient(45deg, var(--brand-red-hover) 0%, #e27676 100%);
+      background-color: #ffffff;
+      border: 2px solid #ff0000;
+      /* Borde blanco para contraste */
       color: white;
+      color: var(--brand-red);
       transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     }
 
     .btn-secondary:hover {
+      background-color: white;
+      /* Fondo blanco al pasar el mouse */
+      color: var(--brand-red);
+      /* Texto rojo al pasar el mouse */
       transform: translateY(-3px) scale(1.05);
-      box-shadow: 0 7px 20px rgba(255, 0, 0, 0.3);
+      box-shadow: 0 7px 20px rgba(255, 255, 255, 0.2);
     }
+
 
     /* --- Sección Hero --- */
     .hero {
@@ -395,7 +403,7 @@
       </video>
       <div class="absolute top-0 left-0 w-full h-full hero-overlay z-10"></div>
       <div class="relative container mx-auto px-4 py-16 text-center z-20">
-        <div id="hero-content"> <!-- Contenedor para animación GSAP -->
+        <div id="hero-content" class="relative z-30"> <!-- Contenedor para animación GSAP -->
           <!-- RUTA CORREGIDA -->
           <img src="assets/OKLTWEB.png" alt="OK Latino Logo" class="h-16 mx-auto mb-4"
             onerror="this.onerror=null;this.src='https://placehold.co/200x64/ffffff/cb0000?text=OK+Latino';">
@@ -404,10 +412,10 @@
           </h1>
           <p class="text-xl text-white mb-8 max-w-2xl mx-auto text-outline">Especializados en Meta Business y creación
             de landing page exitosas.</p>
-          <a href="#services"
-            class="btn-secondary inline-block px-8 py-3 text-white font-medium rounded-full shadow-lg text-lg">Ver
-            Nuestros Planes</a>
         </div>
+        <a href="#services"
+          class="btn-secondary inline-block px-8 py-3 text-brand-red font-medium rounded-full shadow-lg text-lg">Ver
+          Nuestros Planes</a>
       </div>
     </section>
 
